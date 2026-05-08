@@ -37,6 +37,12 @@
     padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; transition: all 0.2s;
   }
   .nav-links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  @media(max-width:768px) {
+    nav { flex-wrap: wrap; height: auto; padding: 0.75rem 1rem; gap: 8px; }
+    .nav-logo { font-size: 12px; }
+    .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
+    .nav-links a { font-size: 11px; padding: 5px 10px; }
+  }
 
   .hero {
     background: linear-gradient(135deg, var(--navy) 0%, #1a3a8f 45%, var(--blue) 100%);
