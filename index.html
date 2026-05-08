@@ -211,17 +211,6 @@
   </div>
 </nav>
 
-<button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-  <i class="fas fa-bars"></i> القائمة
-</button>
-
-<div class="mobile-menu-overlay" id="mobileOverlay">
-  <button class="mobile-close" onclick="toggleMobileMenu()">✕</button>
-  <a href="#forms-section" onclick="toggleMobileMenu()"><i class="fas fa-file-alt"></i> النماذج</a>
-  <a href="#upload-section" onclick="toggleMobileMenu()"><i class="fas fa-upload"></i> الرفع</a>
-  <a href="#dashboard-section" onclick="toggleMobileMenu()"><i class="fas fa-chart-bar"></i> الداشبورد</a>
-  <a href="#chat-section" onclick="toggleMobileMenu()"><i class="fas fa-comments"></i> تواصل</a>
-</div>
 
 <div class="hero">
   <div style="text-align:center;">
@@ -778,10 +767,6 @@ window.addEventListener('load', dbLoad);
 
   document.getElementById('chatInput').addEventListener('keypress', e => { if(e.key==='Enter') sendMsg(); });
 </script>
-<script>
-function toggleMobileMenu() {
-  document.getElementById('mobileOverlay').classList.toggle('open');
-}
-</script>
+
 </body>
 </html>
