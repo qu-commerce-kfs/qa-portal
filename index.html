@@ -37,11 +37,18 @@
     padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; transition: all 0.2s;
   }
   .nav-links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  .hamburger { display: none; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; padding: 4px 8px; }
   @media(max-width:768px) {
-    nav { flex-wrap: wrap; height: auto; padding: 0.75rem 1rem; gap: 8px; }
-    .nav-logo { font-size: 12px; }
-    .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; }
-    .nav-links a { font-size: 11px; padding: 5px 10px; }
+    nav { height: auto; padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0; }
+    .nav-logo { font-size: 13px; flex: 1; }
+    .hamburger { display: block; }
+    .nav-links { 
+      display: none; width: 100%; flex-direction: column; 
+      background: rgba(255,255,255,0.08); border-radius: 10px; 
+      margin-top: 8px; padding: 6px; gap: 2px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 13px; padding: 8px 14px; border-radius: 8px; }
   }
 
   .hero {
@@ -200,11 +207,12 @@
     <i class="fas fa-award"></i>
     <span>وحدة ضمان الجودة — كلية التجارة</span>
   </div>
-  <div class="nav-links">
-    <a href="#forms-section"><i class="fas fa-file-alt"></i> النماذج</a>
-    <a href="#upload-section"><i class="fas fa-upload"></i> الرفع</a>
-    <a href="#dashboard-section"><i class="fas fa-chart-bar"></i> الداشبورد</a>
-    <a href="#chat-section"><i class="fas fa-comments"></i> تواصل</a>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="القائمة">&#9776;</button>
+  <div class="nav-links" id="navLinks">
+    <a href="#forms-section" onclick="closeMenu()"><i class="fas fa-file-alt"></i> النماذج</a>
+    <a href="#upload-section" onclick="closeMenu()"><i class="fas fa-upload"></i> الرفع</a>
+    <a href="#dashboard-section" onclick="closeMenu()"><i class="fas fa-chart-bar"></i> الداشبورد</a>
+    <a href="#chat-section" onclick="closeMenu()"><i class="fas fa-comments"></i> تواصل</a>
   </div>
 </nav>
 
@@ -762,6 +770,14 @@ window.addEventListener('load', dbLoad);
   }
 
   document.getElementById('chatInput').addEventListener('keypress', e => { if(e.key==='Enter') sendMsg(); });
+</script>
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('navLinks').classList.remove('open');
+}
 </script>
 </body>
 </html>
