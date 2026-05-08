@@ -37,18 +37,19 @@
     padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; transition: all 0.2s;
   }
   .nav-links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
-  .hamburger { display: none; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; padding: 4px 8px; }
+  .hamburger { display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 4px 10px; line-height: 1; }
   @media(max-width:768px) {
-    nav { height: auto; padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0; }
-    .nav-logo { font-size: 13px; flex: 1; }
+    nav { height: 52px; padding: 0 1rem; position: fixed; top: 0; left: 0; right: 0; z-index: 200; overflow: visible; }
+    .nav-logo { font-size: 12px; flex: 1; }
     .hamburger { display: block; }
-    .nav-links { 
-      display: none; width: 100%; flex-direction: column; 
-      background: rgba(255,255,255,0.08); border-radius: 10px; 
-      margin-top: 8px; padding: 6px; gap: 2px;
+    .nav-links {
+      display: none; position: fixed; top: 52px; left: 0; right: 0;
+      flex-direction: column; background: #0d1b4b;
+      padding: 10px; gap: 4px; z-index: 199;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
     }
     .nav-links.open { display: flex; }
-    .nav-links a { font-size: 13px; padding: 8px 14px; border-radius: 8px; }
+    .nav-links a { font-size: 14px; padding: 10px 16px; border-radius: 8px; }
   }
 
   .hero {
