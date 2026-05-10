@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>وحدة ضمان الجودة - كلية التجارة جامعة كفرالشيخ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0d1b4b; --blue: #1565c0; --blue-light: #42a5f5; --gold: #f9a825; --gold-light: #ffd54f; --bg: #f0f4fb; --surface: #ffffff; --border: #dde4f0; --text-muted: #607d9e;
+  }
+  html { scroll-behavior: smooth; }
+  section { scroll-margin-top: 70px; }
+  body { font-family: 'Cairo', sans-serif; background: var(--bg); color: #2c3e6b; min-height: 100vh; }
+
+  nav { background: var(--navy); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+  .nav-logo { display: flex; align-items: center; gap: 10px; color: #fff; font-size: 14px; font-weight: 700; }
+  .nav-logo i { color: var(--gold); font-size: 20px; }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+  .nav-links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  @media(max-width:768px) { nav { display: none !important; } .hero { padding-top: 1.5rem; } }
+
+  .hero { background: linear-gradient(135deg, var(--navy) 0%, #1a3a8f 45%, var(--blue) 100%); padding: 4rem 2rem 3rem; text-align: center; position: relative; overflow: hidden; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(249,168,37,0.2); border: 1px solid rgba(249,168,37,0.4); color: var(--gold-light); font-size: 13px; font-weight: 600; padding: 6px 18px; border-radius: 30px; margin-bottom: 1.5rem; }
+  .hero h1 { color: #fff; font-size: 30px; font-weight: 900; line-height: 1.4; margin-bottom: 8px; }
+  .hero h1 span { color: var(--gold-light); }
+  .hero p { color: rgba(255,255,255,0.7); font-size: 15px; }
+  .stats-row { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2.5rem; flex-wrap: wrap; }
+  .stat-box { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 14px; padding: 1rem 2rem; text-align: center; }
+  .stat-box .num { font-size: 28px; font-weight: 900; color: var(--gold-light); }
+  .stat-box .lbl { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+  section { padding: 3rem 0; }
+  .section-head { display: flex; align-items: center; gap: 14px; margin-bottom: 1.75rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border); }
+  .section-icon { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--blue), var(--blue-light)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(21,101,192,0.3); }
+  .section-head h2 { font-size: 20px; font-weight: 800; color: var(--navy); }
+  .section-head p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  /* Tab Styles */
+  .sub-tabs { display: flex; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .sub-tab { padding: 6px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border); background: #fff; color: var(--text-muted); transition: all 0.2s; font-family: 'Cairo', sans-serif; }
+  .sub-tab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .sub-tab:hover:not(.active) { border-color: var(--blue); color: var(--blue); }
+
+  /* Cards Grid */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+  .form-card { background: var(--surface); border-radius: 16px; border: 1.5px solid var(--border); overflow: hidden; transition: all 0.25s; }
+  .form-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(21,101,192,0.15); border-color: #90caf9; }
+  .card-header { padding: 1.1rem 1.1rem 0.8rem; display: flex; align-items: flex-start; gap: 12px; }
+  .card-emoji { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .card-title { font-size: 13.5px; font-weight: 700; color: var(--navy); line-height: 1.4; margin-bottom: 6px; }
+  .lang-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 20px; }
+  .lang-ar { background: #fce4ec; color: #b71c1c; }
+  .lang-en { background: #e8f5e9; color: #1b5e20; }
+  .card-divider { height: 1px; background: #f0f4fb; }
+  .card-footer { padding: 0.8rem 1.1rem; display: flex; align-items: center; justify-content: space-between; }
+  .file-type { font-size: 11px; color: #9e9e9e; display: flex; align-items: center; gap: 5px; }
+  .btn-download { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg, var(--navy), var(--blue)); color: #fff; border: none; border-radius: 10px; padding: 8px 16px; font-size: 13px; font-weight: 700; font-family: 'Cairo', sans-serif; cursor: pointer; text-decoration: none; transition: all 0.2s; box-shadow: 0 3px 10px rgba(21,101,192,0.3); }
+  .btn-download:hover { opacity: 0.9; transform: scale(0.97); }
+
+  /* Action Cards */
+  .action-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+  .action-card { background: var(--surface); border-radius: 20px; border: 1.5px solid var(--border); padding: 1.75rem; display: flex; flex-direction: column; gap: 14px; transition: all 0.25s; }
+  .action-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(21,101,192,0.12); border-color: #90caf9; }
+  .action-card-icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+  .action-card h3 { font-size: 16px; font-weight: 800; color: var(--navy); }
+  .action-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+  .btn-action { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 12px; font-size: 14px; font-weight: 700; font-family: 'Cairo', sans-serif; cursor: pointer; text-decoration: none; transition: all 0.2s; border: none; align-self: flex-start; }
+  .btn-primary { background: linear-gradient(135deg, var(--navy), var(--blue)); color: #fff; box-shadow: 0 3px 10px rgba(21,101,192,0.3); }
+  .btn-primary:hover { opacity:0.9; transform:scale(0.97); }
+  .btn-gold { background: linear-gradient(135deg, #f57f17, var(--gold)); color: #fff; box-shadow: 0 3px 10px rgba(249,168,37,0.4); }
+  .btn-gold:hover { opacity:0.9; transform:scale(0.97); }
+  .btn-green { background: linear-gradient(135deg, #1b5e20, #388e3c); color: #fff; box-shadow: 0 3px 10px rgba(56,142,60,0.3); }
+  .btn-green:hover { opacity:0.9; transform:scale(0.97); }
+
+  footer { background: var(--navy); color: rgba(255,255,255,0.6); text-align: center; padding: 1.5rem; font-size: 13px; }
+  footer span { color: var(--gold-light); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><i class="fas fa-award"></i><span>وحدة ضمان الجودة — كلية التجارة</span></div>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home');return false;"><i class="fas fa-home"></i> الرئيسية</a>
+    <a href="#" onclick="showPage('forms');return false;"><i class="fas fa-file-alt"></i> النماذج</a>
+    <a href="#" onclick="showPage('evidence');return false;"><i class="fas fa-folder-open"></i> الأدلة</a>
+    <a href="#" onclick="showPage('upload');return false;"><i class="fas fa-upload"></i> الرفع</a>
+    <a href="#" onclick="showPage('dashboards');return false;"><i class="fas fa-chart-bar"></i> الداشبوردات</a>
+    <a href="#" onclick="showPage('publications');return false;"><i class="fas fa-book"></i> المنشورات</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div style="text-align:center; position: relative; z-index: 1;"> 
+    <div class="hero-badge"><i class="fas fa-university"></i> كلية التجارة — جامعة كفرالشيخ</div>
+    <h1>بوابة <span>وحدة ضمان الجودة</span><br>والاعتماد الأكاديمي</h1>
+    <p>منصة موحدة لتحميل النماذج ورفع ملفات المعايير ومتابعة الإنجاز</p>
+    <div style="margin-top:1.75rem;display:flex;justify-content:center;align-items:stretch;gap:0;flex-wrap:wrap;max-width:600px;margin-left:auto;margin-right:auto;">
+      <div style="flex:1;min-width:200px;text-align:center;padding:14px 20px;background:rgba(255,255,255,0.08);border-radius:14px 0 0 14px;border:1px solid rgba(255,255,255,0.2);">
+        <div style="font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:6px;"><i class="fas fa-user-tie" style="margin-left:4px;"></i>عميد الكلية</div>
+        <div style="font-size:16px;font-weight:900;color:#ffd54f;line-height:1.4;">أ.د/ وليد محمد عفيفي</div>
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,0.2);flex-shrink:0;"></div>
+      <div style="flex:1;min-width:200px;text-align:center;padding:14px 20px;background:rgba(255,255,255,0.08);border-radius:0 14px 14px 0;border:1px solid rgba(255,255,255,0.2);border-right:none;">
+        <div style="font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:6px;"><i class="fas fa-award" style="margin-left:4px;"></i>مدير وحدة ضمان الجودة</div>
+        <div style="font-size:16px;font-weight:900;color:#ffd54f;line-height:1.4;">د/ محمد عبدالله يوسف نوفل</div>
+      </div>
+    </div>
+    <div style="margin-top:2rem;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:0 1rem;">
+      <a href="#" onclick="showPage('forms');return false;" class="btn-action" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.3); color:#fff;"><i class="fas fa-file-alt"></i> النماذج</a>
+      <a href="#" onclick="showPage('evidence');return false;" class="btn-action" style="background:rgba(249,168,37,0.2); border:1px solid rgba(249,168,37,0.5); color:#ffd54f;"><i class="fas fa-folder-open"></i> الأدلة</a>
+      <a href="#" onclick="showPage('upload');return false;" class="btn-action" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.3); color:#fff;"><i class="fas fa-upload"></i> الرفع</a>
+      <a href="#" onclick="showPage('dashboards');return false;" class="btn-action" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.3); color:#fff;"><i class="fas fa-chart-bar"></i> الداشبوردات</a>
+    </div>
+  </div>
+  <div class="stats-row" style="position: relative; z-index: 1;"> 
+    <div class="stat-box"><div class="num">11</div><div class="lbl">نموذج رسمي</div></div>
+    <div class="stat-box"><div class="num">12</div><div class="lbl">معيار مؤسسي</div></div>
+    <div class="stat-box"><div class="num">7</div><div class="lbl">معيار برامجي</div></div>
+  </div>
+</div>
+
+<div id="page-forms" class="page-content" style="display:none;">
+<section id="forms-section">
+  <div class="container">
+    <div class="section-head"><div class="section-icon"><i class="fas fa-file-download"></i></div><div><h2>النماذج الرسمية المعتمدة</h2><p>اضغط على زر التحميل للحصول على النموذج مباشرة</p></div></div>
+    <div class="sub-tabs">
+      <button class="sub-tab active" onclick="filterCards('all', this)">الكل</button>
+      <button class="sub-tab" onclick="filterCards('توصيف-مقرر', this)">توصيف مقرر</button>
+      <button class="sub-tab" onclick="filterCards('تقرير-مقرر', this)">تقرير مقرر</button>
+      <button class="sub-tab" onclick="filterCards('توصيف-برنامج', this)">توصيف برنامج</button>
+      <button class="sub-tab" onclick="filterCards('تقرير-برنامج', this)">تقرير برنامج</button>
+      <button class="sub-tab" onclick="filterCards('امتحان', this)">ورقة امتحانية</button>
+    </div>
+    <div class="cards-grid" id="cardsGrid">
+      <div class="form-card" data-cat="توصيف-مقرر"><div class="card-header"><div class="card-emoji" style="background:#e3f2fd;">📋</div><div><div class="card-title">نموذج توصيف مقرر</div><span class="lang-badge lang-ar">عربي</span></div></div><div class="card-divider"></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-word"></i> Docs</div><a href="https://docs.google.com/document/d/1sg5CUcMAD1Z9TYL1nmDHNUZMNWP1hCe2MPOS_gcrl48/edit?usp=sharing" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card" data-cat="توصيف-مقرر"><div class="card-header"><div class="card-emoji" style="background:#e8f5e9;">📋</div><div><div class="card-title">Course Description</div><span class="lang-badge lang-en">English</span></div></div><div class="card-divider"></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-word"></i> Docs</div><a href="https://docs.google.com/document/d/1qtP4kS_lZcHzVrmDmsCj6u9mric1QEJCFTX8sTjrkQc/edit?usp=sharing" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card" data-cat="تقرير-مقرر"><div class="card-header"><div class="card-emoji" style="background:#fff3e0;">📊</div><div><div class="card-title">نموذج تقرير مقرر</div><span class="lang-badge lang-ar">عربي</span></div></div><div class="card-divider"></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-word"></i> Docs</div><a href="https://docs.google.com/document/d/1O1WKUe5E1j079XNWeKUysavfyzb5_z-b9RjekvIE2mw/edit?usp=sharing" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card" data-cat="تقرير-مقرر"><div class="card-header"><div class="card-emoji" style="background:#e8f5e9;">📊</div><div><div class="card-title">Course Report Form</div><span class="lang-badge lang-en">English</span></div></div><div class="card-divider"></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-word"></i> Docs</div><a href="https://docs.google.com/document/d/19nWuNmJ_ucjOuDBpneqPvchijQ3VICkTpVT8Pe3wixY/edit?usp=sharing" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card" data-cat="توصيف-برنامج"><div class="card-header"><div class="card-emoji" style="background:#ede7f6;">🎓</div><div><div class="card-title">نموذج توصيف برنامج</div><span class="lang-badge lang-ar">عربي</span></div></div><div class="card-divider"></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-word"></i> Docs</div><a href="https://docs.google.com/document/d/1yNcBqTqJiXhsg2Xsy5xCQ-X0XjtOI0FVcrG6k_Qf4Jg/edit?usp=sharing" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card" data-cat="توصيف-برنامج"><div class="card-header"><div class="card-emoji" style="background:#e8f5e9;">🎓</div><div><div class="card-title">Program Description</div><span class="lang-badge lang-en">English</span></div></div><div class="card-divider"></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-word"></i> Docs</div><a href="https://docs.google.com/document/d/1qrC0Xi50zP9iEolPSMsZKQo1a3uyA8G-TFVj0vJrKXA/edit?usp=sharing" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card" data-cat="تقرير-برنامج"><div class="card-header"><div class="card-emoji" style="background:#fce4ec;">📈</div><div><div class="card-title">نموذج تقرير برنامج</div><span class="lang-badge lang-ar">عربي</span></div></div><div class="card-divider"></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-word"></i> Docs</div><a href="https://docs.google.com/document/d/1JENEaOD9C9czjSy8ZSigd5-CtgDoVeCoqlVgdfqw-Q4/edit?usp=sharing" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card" data-cat="تقرير-برنامج"><div class="card-header"><div class="card-emoji" style="background:#e8f5e9;">📈</div><div><div class="card-title">Program Report Form</div><span class="lang-badge lang-en">English</span></div></div><div class="card-divider"></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-word"></i> Docs</div><a href="https://docs.google.com/document/d/1xsDe-ipveiicrCNpSDm98kIz_L7zrD-7AZaBy91sMTM/edit?usp=sharing" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card" data-cat="امتحان"><div class="card-header"><div class="card-emoji" style="background:#fff8e1;">📝</div><div><div class="card-title">نموذج ورقة امتحانية</div><span class="lang-badge lang-ar">عربي</span></div></div><div class="card-divider"></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-word"></i> Docs</div><a href="https://docs.google.com/document/d/1YV16M-XcOkWcxlBjqEUbiWc2r4G75xVPqW7Xl5Ot2r8/edit?usp=sharing" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card" data-cat="امتحان"><div class="card-header"><div class="card-emoji" style="background:#e8f5e9;">📝</div><div><div class="card-title">Exam Paper Form</div><span class="lang-badge lang-en">English</span></div></div><div class="card-divider"></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-word"></i> Docs</div><a href="https://docs.google.com/document/d/1r_R2qL465LFzw7BwEX0uvxTrkZWTHPAGtmeGy1f_CbU/edit?usp=sharing" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div id="page-evidence" class="page-content" style="display:none;">
+<section id="evidence-section" style="background:#ffffff; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head"><div class="section-icon" style="background:linear-gradient(135deg,var(--gold),#ff8f00);"><i class="fas fa-folder-open"></i></div><div><h2>أدلة ومرفقات معايير الاعتماد</h2><p>الاطلاع على مستندات كل معيار مباشرة من Google Drive</p></div></div>
+    <h3 style="color:var(--navy);margin-bottom:1.5rem;font-size:17px;border-right:4px solid var(--gold);padding-right:10px;">أولاً: المعايير المؤسسية</h3>
+    <div class="action-grid" style="margin-bottom:2.5rem;">
+      <div class="action-card"><div class="action-card-icon" style="background:#e3f2fd;"><i class="fas fa-bullseye" style="color:#1565c0;font-size:26px;"></i></div><h3>التخطيط الاستراتيجي</h3><a href="https://drive.google.com/drive/folders/1DpZxbhiCu0S2fQX_Y8zpnn_o21rymFYO" target="_blank" class="btn-action btn-primary"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#fff3e0;"><i class="fas fa-users-cog" style="color:#e65100;font-size:26px;"></i></div><h3>القيادة والحوكمة</h3><a href="https://drive.google.com/drive/folders/1rLxvomxYODrjCbSuxYJZcN6jhO31GMuU" target="_blank" class="btn-action btn-gold"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#e8f5e9;"><i class="fas fa-award" style="color:#2e7d32;font-size:26px;"></i></div><h3>إدارة الجودة والتطوير</h3><a href="https://drive.google.com/drive/folders/1GZonGDq9WGD51oiMOpS7W_ouFhEK5HQQ" target="_blank" class="btn-action btn-green"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#ede7f6;"><i class="fas fa-chalkboard-teacher" style="color:#4527a0;font-size:26px;"></i></div><h3>أعضاء هيئة التدريس</h3><a href="https://drive.google.com/drive/folders/17tNAdte3vn-9jVpiV4T2kX3RIDxieoaF" target="_blank" class="btn-action btn-primary"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#fce4ec;"><i class="fas fa-user-tie" style="color:#c2185b;font-size:26px;"></i></div><h3>الجهاز الإداري</h3><a href="https://drive.google.com/drive/folders/1ND2fvu1An7W3-ioXu2E6X3sqqoNySI0q" target="_blank" class="btn-action btn-primary"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#fff8e1;"><i class="fas fa-building" style="color:#f57f17;font-size:26px;"></i></div><h3>الموارد المالية والمادية</h3><a href="https://drive.google.com/drive/folders/1tU0C6uCKcDrWCW1OKTB5wjo_NLh5SmkK" target="_blank" class="btn-action btn-gold"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#e3f2fd;"><i class="fas fa-book-open" style="color:#1565c0;font-size:26px;"></i></div><h3>المعايير الأكاديمية</h3><a href="https://drive.google.com/drive/folders/1vKCtVM16ZfK1ut2xJ46IiBGZVeWog5kw" target="_blank" class="btn-action btn-primary"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#e8f5e9;"><i class="fas fa-user-graduate" style="color:#2e7d32;font-size:26px;"></i></div><h3>الطلاب والخريجون</h3><a href="https://drive.google.com/drive/folders/1aK8yCRUIm6Tgh9zxrKSWHZgN-Swn9b-n" target="_blank" class="btn-action btn-green"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#ede7f6;"><i class="fas fa-microscope" style="color:#4527a0;font-size:26px;"></i></div><h3>البحث العلمي</h3><a href="https://drive.google.com/drive/folders/1O2PdDsT8gbNXGFxAN_buvU9mF-EtGb3R" target="_blank" class="btn-action btn-primary"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#fff3e0;"><i class="fas fa-graduation-cap" style="color:#e65100;font-size:26px;"></i></div><h3>الدراسات العليا</h3><a href="https://drive.google.com/drive/folders/1iTNFE6cmEe3ztu9fuJiAlim5cbG3lBbG" target="_blank" class="btn-action btn-gold"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#fce4ec;"><i class="fas fa-hands-helping" style="color:#c2185b;font-size:26px;"></i></div><h3>المشاركة المجتمعية</h3><a href="https://drive.google.com/drive/folders/1XdbbY6gndaGl_zkEW65AWbhlVnlAviNb" target="_blank" class="btn-action btn-primary"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#e3f2fd;"><i class="fas fa-chalkboard" style="color:#1565c0;font-size:26px;"></i></div><h3>التدريس والتعلم</h3><a href="https://drive.google.com/drive/folders/1-zT4PEJ65n91iTcOmhkpEDECNQpTXLfk" target="_blank" class="btn-action btn-primary"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+    </div>
+    <h3 style="color:var(--navy);margin-bottom:1.5rem;font-size:17px;border-right:4px solid var(--gold);padding-right:10px;">ثانياً: المعايير البرامجية</h3>
+    <div class="action-grid">
+      <div class="action-card"><div class="action-card-icon" style="background:#fff8e1;"><i class="fas fa-scroll" style="color:#f57f17;font-size:26px;"></i></div><h3>رسالة وإدارة البرنامج</h3><a href="https://drive.google.com/drive/folders/1VAQbgxnvmegAyUBjLWqh4F8ZYVZZv0wR" target="_blank" class="btn-action btn-gold"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#e8f5e9;"><i class="fas fa-drafting-compass" style="color:#2e7d32;font-size:26px;"></i></div><h3>تصميم البرنامج</h3><a href="https://drive.google.com/drive/folders/1drXh5_9MpDZR5sWwz0fVtbAvAaPuSC_w" target="_blank" class="btn-action btn-green"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#e3f2fd;"><i class="fas fa-laptop-house" style="color:#1565c0;font-size:26px;"></i></div><h3>التعليم والتعلم والتقييم</h3><a href="https://drive.google.com/drive/folders/1CvDH2_4ywZasBs3Bkf_-Pgv6HV5sBMO4" target="_blank" class="btn-action btn-primary"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#ede7f6;"><i class="fas fa-user-graduate" style="color:#4527a0;font-size:26px;"></i></div><h3>الطلاب والخريجون (برامجي)</h3><a href="https://drive.google.com/drive/folders/18-GvAyBFp-Cwt1ramdbgLMURDyIWPKpn" target="_blank" class="btn-action btn-primary"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#fff3e0;"><i class="fas fa-chalkboard-teacher" style="color:#e65100;font-size:26px;"></i></div><h3>أعضاء هيئة التدريس (برامجي)</h3><a href="https://drive.google.com/drive/folders/17lXofLv2UglNwqy6PeKf2s1DVpbhd1tD" target="_blank" class="btn-action btn-gold"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#fce4ec;"><i class="fas fa-cubes" style="color:#c2185b;font-size:26px;"></i></div><h3>الموارد ومصادر التعلم</h3><a href="https://drive.google.com/drive/folders/1BU4Nrz5exSfKqy89WjEqlvpWYDZ4jiL3" target="_blank" class="btn-action btn-primary"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#e8f5e9;"><i class="fas fa-tasks" style="color:#2e7d32;font-size:26px;"></i></div><h3>ضمان الجودة وتقييم البرامج</h3><a href="https://drive.google.com/drive/folders/113axqhRExz4LwIdvAiEo1yhOGsNmlseL" target="_blank" class="btn-action btn-green"><i class="fas fa-external-link-alt"></i> عرض الملفات</a></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div id="page-upload" class="page-content" style="display:none;">
+<section id="upload-section" style="background:#fff; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head"><div class="section-icon"><i class="fas fa-cloud-upload-alt"></i></div><div><h2>رفع الملفات والمستندات</h2><p>اختر القسم المناسب لرفع ملفاتك على Google Drive مباشرة</p></div></div>
+    <div class="action-grid">
+      <div class="action-card"><div class="action-card-icon" style="background:#e3f2fd;"><i class="fas fa-shield-alt" style="color:#1565c0;font-size:26px;"></i></div><h3>ملفات معايير الاعتماد</h3><a href="https://docs.google.com/forms/d/e/1FAIpQLSeo63BwxpoEXMbPxSY___Fu0vozX_iX1vxhHrCnSz6YXKip-A/viewform?usp=publish-editor" target="_blank" class="btn-action btn-primary"><i class="fas fa-upload"></i> رفع ملفات المعايير</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#e8eaf6;"><i class="fas fa-file-invoice" style="color:#3949ab;font-size:26px;"></i></div><h3>رفع تقارير الكنترول</h3><a href="https://docs.google.com/forms/d/e/1FAIpQLSdv5RA9FC8C4q95BcxzYIljYqZS07BO5N7pDDIYdrJ_2c9h-w/viewform?usp=header" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#283593,#3949ab);color:#fff;"><i class="fas fa-upload"></i> رفع تقرير الكنترول</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#fce4ec;"><i class="fas fa-question-circle" style="color:#c2185b;font-size:26px;"></i></div><h3>رفع الأسئلة والإجابة</h3><a href="https://docs.google.com/forms/d/e/1FAIpQLSd4am6JlDuz_JmRnXHWD0KWBmp5WKD5IbtmJBLIY2A9-ZEuBg/viewform?usp=dialog" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#880e4f,#c2185b);color:#fff;"><i class="fas fa-upload"></i> رفع الأسئلة والإجابة</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#e8f5e9;"><i class="fas fa-poll" style="color:#2e7d32;font-size:26px;"></i></div><h3>رفع استبيانات المعايير</h3><a href="https://docs.google.com/forms/d/e/1FAIpQLSe4oX4HweZCfgp-2Jiwoqbv_X_I40vOOD9ipXM4QLLRk6O9Dg/viewform?usp=publish-editor" target="_blank" class="btn-action btn-green"><i class="fas fa-upload"></i> رفع استبيان</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#fff3e0;"><i class="fas fa-graduation-cap" style="color:#e65100;font-size:26px;"></i></div><h3>رفع توصيف المقررات</h3><a href="https://docs.google.com/forms/d/e/1FAIpQLSfnUTZy_cFNvayViM8Qnax4YssxZj2s7Kr9re6uBT3I9DTjxA/viewform?usp=publish-editor" target="_blank" class="btn-action btn-gold"><i class="fas fa-upload"></i> رفع التوصيف</a></div>
+      <div class="action-card"><div class="action-card-icon" style="background:#e8f5e9;"><i class="fas fa-clipboard-check" style="color:#2e7d32;font-size:26px;"></i></div><h3>رفع تقارير المقررات</h3><a href="https://docs.google.com/forms/d/e/1FAIpQLSfW-qK2s7octZhDQ0uC7w9hrky_zATa7BwETG1hZdsoHtsTOg/viewform?usp=publish-editor" target="_blank" class="btn-action btn-green"><i class="fas fa-upload"></i> رفع التقرير</a></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div id="page-dashboards" class="page-content" style="display:none;">
+<section id="course-dashboard" style="background:#f0f4fb; border-top:1px solid #dde4f0; padding-bottom: 1rem;">
+  <div class="container">
+    <div class="section-head"><div class="section-icon"><i class="fas fa-chart-bar"></i></div><div><h2>داشبورد متابعة تسليم المقررات</h2><p>مقارنة الخطة التدريسية مع الملفات المرفوعة لتحديد المتأخرين</p></div></div>
+    <div id="db-loading" style="text-align:center;padding:3rem;color:#607d9e;"><i class="fas fa-spinner fa-spin" style="font-size:2rem;margin-bottom:1rem;display:block;color:#1565c0;"></i> جاري مطابقة البيانات...</div>
+    <div id="db-error" style="display:none;text-align:center;padding:2rem;"><i class="fas fa-exclamation-circle" style="font-size:2rem;color:#b71c1c;margin-bottom:1rem;display:block;"></i><p style="color:#b71c1c;font-weight:700;">تعذر قراءة ملفات الرفع</p><button onclick="dbLoad()" style="margin-top:1rem;font-family:'Cairo',sans-serif;font-size:13px;padding:8px 20px;border-radius:10px;border:none;background:#1565c0;color:#fff;cursor:pointer;">إعادة المحاولة</button></div>
+    <div id="db-content" style="display:none;">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem;" id="db-metrics"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:1.5rem;">
+        <div style="background:#fff;border-radius:16px;border:1.5px solid #dde4f0;padding:1.25rem;"><div style="font-size:14px;font-weight:700;color:#0d1b4b;margin-bottom:12px;">نسبة الإنجاز حسب الفرقة</div><div style="position:relative;height:190px;"><canvas id="gradeChart"></canvas></div></div>
+        <div style="background:#fff;border-radius:16px;border:1.5px solid #dde4f0;padding:1.25rem;"><div style="font-size:14px;font-weight:700;color:#0d1b4b;margin-bottom:12px;">توصيف مقابل تقرير</div><div style="position:relative;height:190px;"><canvas id="typeChart"></canvas></div></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center;">
+        <select id="db-grade" onchange="dbFilter()" style="font-family:'Cairo',sans-serif;font-size:13px;padding:7px 12px;border-radius:10px;border:1.5px solid #dde4f0;background:#fff;color:#2c3e6b;cursor:pointer;">
+          <option value="">كل الفرق</option><option>الأولى</option><option>الثانية</option><option>الثالثة</option><option>الرابعة</option>
+        </select>
+        <select id="db-dept" onchange="dbFilter()" style="font-family:'Cairo',sans-serif;font-size:13px;padding:7px 12px;border-radius:10px;border:1.5px solid #dde4f0;background:#fff;color:#2c3e6b;cursor:pointer;">
+          <option value="">كل الأقسام</option><option value="محاسبه">محاسبة</option><option value="ادارة اعمال">إدارة أعمال</option><option value="احصاء">الرياضة والإحصاء والتأمين</option><option value="اقتصاد">الاقتصاد والمالية العامة</option>
+        </select>
+        <select id="db-lang" onchange="dbFilter()" style="font-family:'Cairo',sans-serif;font-size:13px;padding:7px 12px;border-radius:10px;border:1.5px solid #dde4f0;background:#fff;color:#2c3e6b;cursor:pointer;">
+          <option value="">كل اللغات</option><option>عربي</option><option>إنجليزي</option>
+        </select>
+        <select id="db-status" onchange="dbFilter()" style="font-family:'Cairo',sans-serif;font-size:13px;padding:7px 12px;border-radius:10px;border:1.5px solid #dde4f0;background:#fff;color:#2c3e6b;cursor:pointer;font-weight:bold;">
+          <option value="">حالة التسليم (الكل)</option><option value="done">سلم توصيف وتقرير</option><option value="pending">لم يسلم شيء</option><option value="partial">سلم أحدهما</option>
+        </select>
+        <button onclick="dbLoad()" style="font-family:'Cairo',sans-serif;font-size:13px;padding:7px 16px;border-radius:10px;border:none;background:#1565c0;color:#fff;cursor:pointer;font-weight:700;"><i class="fas fa-sync-alt"></i> تحديث</button>
+        <span id="db-lastupdate" style="font-size:12px;color:#9e9e9e;margin-right:auto;"></span>
+      </div>
+      <div style="background:#fff;border-radius:16px;border:1.5px solid #dde4f0;overflow:hidden;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;font-family:'Cairo',sans-serif;table-layout:fixed;">
+          <thead>
+            <tr style="background:#f8faff;">
+              <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;width:23%;">اسم الدكتور</th>
+              <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;width:23%;">المقرر</th>
+              <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;width:14%;">الفرقة / الفصل</th>
+              <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;width:12%;">القسم / اللغة</th>
+              <th style="padding:11px 14px;text-align:center;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;width:14%;">توصيف</th>
+              <th style="padding:11px 14px;text-align:center;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;width:14%;">تقرير</th>
+            </tr>
+          </thead><tbody id="db-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="control-dashboard" style="background:#fff; border-top:1px solid #dde4f0; padding-bottom: 1rem;">
+  <div class="container">
+    <div class="section-head"><div class="section-icon" style="background:linear-gradient(135deg,#283593,#3949ab);"><i class="fas fa-file-invoice"></i></div><div><h2>داشبورد تقارير الكنترول</h2></div></div>
+    <div id="ctrl-content">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem;" id="ctrl-metrics"></div>
+      <div style="background:#fff;border-radius:16px;border:1.5px solid #dde4f0;overflow:hidden; max-height: 250px; overflow-y:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;font-family:Cairo,sans-serif;table-layout:fixed;">
+          <thead><tr style="background:#f8faff;"><th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;">اسم عضو هيئة التدريس</th><th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;">الفرقة والترم</th><th style="padding:11px 14px;text-align:center;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;">الحالة</th></tr></thead>
+          <tbody id="ctrl-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="qa-forms-dashboard" style="background:#f0f4fb; border-top:1px solid #dde4f0; padding-bottom: 1rem;">
+  <div class="container">
+    <div class="section-head"><div class="section-icon" style="background:linear-gradient(135deg,#880e4f,#c2185b);"><i class="fas fa-question-circle"></i></div><div><h2>داشبورد الأسئلة والإجابة</h2></div></div>
+    <div id="qa-content">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem;" id="qa-metrics"></div>
+      <div style="background:#fff;border-radius:16px;border:1.5px solid #dde4f0;overflow:hidden; max-height: 250px; overflow-y:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;font-family:Cairo,sans-serif;table-layout:fixed;">
+          <thead><tr style="background:#f8faff;"><th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;">الدكتور والمقرر</th><th style="padding:11px 14px;text-align:center;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;">الأسئلة</th><th style="padding:11px 14px;text-align:center;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;">الإجابة</th></tr></thead>
+          <tbody id="qa-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="standards-dashboard" style="background:#fff; border-top:1px solid #dde4f0;">
+  <div class="container">
+    <div class="section-head"><div class="section-icon" style="background:linear-gradient(135deg,#1b5e20,#388e3c);"><i class="fas fa-shield-alt"></i></div><div><h2>داشبورد وثائق المعايير</h2></div></div>
+    <div id="std-content">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem;" id="std-metrics"></div>
+      <div id="std-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;"></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div id="page-publications" class="page-content" style="display:none;">
+<section style="background:#f0f4fb; border-top:1px solid #dde4f0; padding:3rem 0;">
+  <div class="container">
+    <div class="section-head"><div class="section-icon" style="background:linear-gradient(135deg,#4527a0,#7e57c2);"><i class="fas fa-book"></i></div><div><h2>منشورات الجودة الاسترشادية</h2><p>الملفات الاسترشادية الصادرة عن هيئة ضمان جودة التعليم والاعتماد</p></div></div>
+    <div class="cards-grid">
+      <div class="form-card"><div class="card-header"><div class="card-emoji" style="background:#ede7f6;">📘</div><div><div class="card-title">دليل التقويم الذاتي والدراسة الذاتية</div><span class="lang-badge lang-ar">هيئة ضمان الجودة</span></div></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-pdf"></i> PDF</div><a href="https://drive.google.com/file/d/1Bpb64SE-vaN9221GWm5I26jPBgy1KmXf/view" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card"><div class="card-header"><div class="card-emoji" style="background:#ede7f6;">📗</div><div><div class="card-title">دليل اعتماد كليات التعليم العالي</div><span class="lang-badge lang-ar">هيئة ضمان الجودة</span></div></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-pdf"></i> PDF</div><a href="https://drive.google.com/file/d/1TUGJ9JcKB-n8l-ajFUXXnU1FOJ_r4VCe/view" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card"><div class="card-header"><div class="card-emoji" style="background:#ede7f6;">📙</div><div><div class="card-title">معايير الاعتماد البرامجي</div><span class="lang-badge lang-ar">هيئة ضمان الجودة</span></div></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-pdf"></i> PDF</div><a href="https://drive.google.com/file/d/1Cxn047c8zqb7DR_RgST42FfKcleg08oS/view" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+      <div class="form-card"><div class="card-header"><div class="card-emoji" style="background:#ede7f6;">📕</div><div><div class="card-title">معايير الاعتماد المؤسسي</div><span class="lang-badge lang-ar">هيئة ضمان الجودة</span></div></div><div class="card-footer"><div class="file-type"><i class="fas fa-file-pdf"></i> PDF</div><a href="https://drive.google.com/file/d/11FO2T2pajpJz6wtl6D1znChqeSUn_qm9/view" target="_blank" class="btn-download"><i class="fas fa-download"></i> تحميل</a></div></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer><p>وحدة ضمان الجودة والاعتماد الأكاديمي — <span>كلية التجارة، جامعة كفرالشيخ</span></p></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+
+<script>
+// ==========================================
+// 1. قاعدة بيانات المقررات المدمجة (147 مقرر)
+// ==========================================
+const PLAN_DATA = [
+  {dr: "أ.م.د/ عصام البدري", sub: "مبادئ الاقتصاد", grade: "الأولى", sem: "الأول", lang: "إنجليزي", dept: "الاقتصاد", year: "2025/2026"},
+  {dr: "د/ علي محمد", sub: "موارد اقتصادية", grade: "الأولى", sem: "الأول", lang: "إنجليزي", dept: "الاقتصاد", year: "2025/2026"},
+  {dr: "د/ أحمد رمزي", sub: "رياضيات الأعمال للتجاريين", grade: "الأولى", sem: "الأول", lang: "إنجليزي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ رضا صالح/ د. محمد عبدالله", sub: "مبادئ المحاسبة المالية", grade: "الأولى", sem: "الأول", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ علي عبد القادر", sub: "مبادئ الإدارة", grade: "الأولى", sem: "الأول", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ إبراهيم منشاوي", sub: "أخلاقيات مهنة المحاسبة", grade: "الأولى", sem: "الأول", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ وليد حمدان", sub: "السلوك التنظيمي", grade: "الأولى", sem: "الأول", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ أحمد قمرة / د/ حنان عادل", sub: "مبادئ الاقتصاد الجزئي", grade: "الأولى", sem: "الأول", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "د/ إبراهيم منشاوي", sub: "أخلاقيات مهنة المحاسبة", grade: "الأولى", sem: "الأول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ سهام نبيل / د/ شاهيستا السعيد", sub: "السلوك التنظيمي", grade: "الأولى", sem: "الأول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ أحمد عيد", sub: "موارد اقتصادية", grade: "الأولى", sem: "الأول", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.د/ يوسف عبد القادر / د/ محمد عبد الله", sub: "مبادئ المحاسبة المالية", grade: "الأولى", sem: "الأول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ نها عبد اللطيف", sub: "رياضيات الأعمال للتجاريين", grade: "الأولى", sem: "الأول", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ محمد أبو القمصان / د/ وليد أبو حلوة", sub: "مبادئ الإدارة", grade: "الأولى", sem: "الأول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ رضا صالح", sub: "مبادئ المحاسبة الإدارية", grade: "الثانية", sem: "الأول", lang: "انجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي", sub: "مبادئ الإحصاء", grade: "الثانية", sem: "الأول", lang: "انجليزي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ علي مجاهد", sub: "محاسبة شركات الأشخاص", grade: "الثانية", sem: "الأول", lang: "انجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ علي عبد القادر", sub: "إدارة تسويق", grade: "الثانية", sem: "الأول", lang: "انجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ إبراهيم الطحان / أ.م.د/ إبراهيم زكريا", sub: "دراسات محاسبية بلغة", grade: "الثانية", sem: "الأول", lang: "انجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ عصام البدري", sub: "اقتصاد نقود وبنوك", grade: "الثانية", sem: "الأول", lang: "انجليزي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "د/ سماح عادل", sub: "الموارد البشرية", grade: "الثانية", sem: "الأول", lang: "انجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ شيرين أبو وردة / أ.م.د/ ممدوح عبد الفتاح", sub: "إدارة تسويق", grade: "الثانية", sem: "الأول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ علي مجاهد / د/ تامر الشيخ", sub: "دراسات محاسبية بلغة", grade: "الثانية", sem: "الأول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ عبد العزيز مرزوق / د/ إيمان المنطاوي", sub: "الموارد البشرية", grade: "الثانية", sem: "الأول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ إبراهيم زكريا / د/ هديل أبو شلوع", sub: "محاسبة شركات الأشخاص", grade: "الثانية", sem: "الأول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي", sub: "مبادئ الإحصاء", grade: "الثانية", sem: "الأول", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ شوقي فودة / د/ آية سمير", sub: "مبادئ المحاسبة الإدارية", grade: "الثانية", sem: "الأول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ عصام مندور / د/ أحمد قمرة", sub: "اقتصاد نقود وبنوك", grade: "الثانية", sem: "الأول", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي", sub: "إحصاء تطبيقي", grade: "الثالثه", sem: "الاول", lang: "إنجليزي", dept: "احصاء", year: "2025/2026"},
+  {dr: "د/ تامر الشيخ", sub: "محاسبة حكومية وقومية", grade: "الثالثه", sem: "الاول", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ محمد المسيري / د/ وليد حمدان", sub: "إدارة مواد", grade: "الثالثه", sem: "الاول", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ علي محمد علي", sub: "تجارة خارجية", grade: "الثالثه", sem: "الاول", lang: "إنجليزي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "د/ عبده عتش", sub: "محاسبة تكاليف", grade: "الثالثه", sem: "الاول", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ أيمن صبري", sub: "مشاكل محاسبية معاصرة", grade: "الثالثه", sem: "الاول", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ محمد المسيري", sub: "تمويل وإدارة مالية", grade: "الثالثه", sem: "الاول", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ عزت قناوي / د/ حنان عادل", sub: "تجارة خارجية", grade: "الثالثه", sem: "الاول", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.د/ سيد عبد الفتاح / د/ وائل شوقي", sub: "محاسبة حكومية وقومية", grade: "الثالثه", sem: "الاول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ محمد المسيري", sub: "تمويل وإدارة مالية", grade: "الثالثه", sem: "الاول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ عبده عتش", sub: "محاسبة تكاليف", grade: "الثالثه", sem: "الاول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ أحمد رمزي", sub: "إحصاء تطبيقي", grade: "الثالثه", sem: "الاول", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ علي عبد القادر / د/ منى السنديوني / د/ سماح عادل", sub: "إدارة مواد", grade: "الثالثه", sem: "الاول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ دينا كمال / د/ غادة حمدي", sub: "مشاكل محاسبية معاصرة", grade: "الثالثه", sem: "الاول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ إيهاب أبو خزانة / د/ نسمة السيد", sub: "التحليل المحاسبي للقوائم", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ إبراهيم الطحان / د/ محمد عبد الله", sub: "نظم التكاليف الفعلية", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ أيمن صبري / د/ محمد سلطان", sub: "محاسبة مالية متقدمة", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ ياسر الشافعي / د/ هالة العجمي", sub: "محاسبة ضريبية", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ إيمان عبد الفتاح / د/ وائل شوقي", sub: "مراجعة الحسابات", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ هبة طنطاوي / د/ هديل أبو شلوع", sub: "نظم المعلومات المحاسبية", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ عبده عتش", sub: "نظم التكاليف الفعلية", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ تامر الشيخ", sub: "نظم المعلومات المحاسبية", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ إبراهيم منشاوي", sub: "محاسبة مالية متقدمة", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ علي مجاهد", sub: "محاسبة ضريبية", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ أيمن صبري", sub: "مراجعة الحسابات", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ محمد عبد الله", sub: "التحليل المحاسبي للقوائم", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ إيناس العباسي", sub: "بحوث التسويق", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ منى السنديوني", sub: "إدارة الجودة", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ سامح أبو الدهب", sub: "نظريات التنظيم", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ ممدوح عبد الفتاح", sub: "الإدارة الاستراتيجية", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ أسامة الطبلاوي", sub: "بحوث العمليات الإدارية", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ وليد حمدان", sub: "نظم المعلومات الإدارية", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ سماح عادل", sub: "إدارة الجودة", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ سماح عادل", sub: "بحوث التسويق", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ علي عبد القادر / د/ وليد حمدان", sub: "بحوث العمليات الإدارية", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ محمد المسيري / د/ سماح عادل", sub: "نظريات التنظيم", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ محمد المسيري / د/ وليد حمدان", sub: "الإدارة الاستراتيجية", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ محمد المسيري / د/ وليد حمدان", sub: "نظم المعلومات الإدارية", grade: "الرابعة", sem: "الاول", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي", sub: "إحصاء رياضي", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "د/ أحمد رمزي شحاتة", sub: "رياضيات متقدمة", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.م.د/ نها عبد اللطيف", sub: "بحوث عمليات", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "د/ أحمد رمزي شحاتة", sub: "تحليل الانحدار المتعدد", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي", sub: "تحليل إحصائي آلي", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي", sub: "لغة برمجة حاسب آلي", grade: "الرابعة", sem: "الاول", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ عبد العزيز مرزوق / د/ إيمان المنطاوي", sub: "إدارة الموارد البشرية", grade: "الأولى", sem: "الثاني", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ شوقي فودة / د/ آية سمير", sub: "محاسبة تكاليف", grade: "الأولى", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ علي أبو السعود", sub: "مبادئ الخطر والتأمين", grade: "الأولى", sem: "الثاني", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.م.د/ عصام مندور", sub: "مبادئ الاقتصاد الكلي", grade: "الأولى", sem: "الثاني", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.د/ يوسف عبد القادر / د/ محمد عبد الله", sub: "مبادئ محاسبة", grade: "الأولى", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ أحمد عيد / أ.م.د/ أحمد قمرة", sub: "حقوق الإنسان", grade: "الأولى", sem: "الثاني", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.د/ محمد سالم", sub: "رياضيات تمويل الاستثمار", grade: "الأولى", sem: "الثاني", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.م.د/ أحمد عيد / أ.م.د/ أحمد قمرة", sub: "حقوق الإنسان", grade: "الأولى", sem: "الثاني", lang: "إنجليزي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.د/ رضا صالح", sub: "محاسبة مالية", grade: "الأولى", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ سماح عادل", sub: "إدارة الموارد البشرية", grade: "الأولى", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ أحمد رمزي", sub: "رياضيات تمويل الاستثمار", grade: "الأولى", sem: "الثاني", lang: "إنجليزي", dept: "احصاء", year: "2025/2026"},
+  {dr: "د/ أحمد رمزي", sub: "مبادئ الخطر والتأمين", grade: "الأولى", sem: "الثاني", lang: "إنجليزي", dept: "احصاء", year: "2025/2026"},
+  {dr: "د/ مها السباعي", sub: "مبادئ الاقتصاد الكلي", grade: "الأولى", sem: "الثاني", lang: "إنجليزي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "د/ رضا صالح", sub: "محاسبة تكاليف", grade: "الأولى", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ هالة العجمي / أ.م.د/ دينا كمال", sub: "محاسبة شركات الأموال", grade: "الثانية", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ شيرين أبو وردة / أ.م.د/ ممدوح عبد الفتاح / د/ منى السنديوني", sub: "إدارة الإنتاج", grade: "الثانية", sem: "الثاني", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ أحمد قمرة", sub: "مالية عامة", grade: "الثانية", sem: "الثاني", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.د/ علي عبد القادر / د/ سماح عادل", sub: "دراسات إدارية بلغة", grade: "الثانية", sem: "الثاني", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي / أ.م.د/ نها عبد اللطيف", sub: "دراسات إحصائية وتأمين بلغة", grade: "الثانية", sem: "الثاني", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.م.د/ سهام نبيل / د/ هديل أبو شلوع", sub: "تطبيقات محاسبية وإدارية على الحاسب", grade: "الثانية", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ أحمد قمرة / د/ حنان عادل / د/ صابر فتحي", sub: "قانون تجاري وسياسات مالية", grade: "الثانية", sem: "الثاني", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي / د/ علي أبو السعود", sub: "دراسات تأمينية وإحصائية بلغة", grade: "الثانية", sem: "الثاني", lang: "إنجليزي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ علي عبد القادر", sub: "إدارة إنتاج", grade: "الثانية", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ إبراهيم منشاوي", sub: "محاسبة شركات الأموال", grade: "الثانية", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ علي عبد القادر", sub: "دراسات إدارية بلغة", grade: "الثانية", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ علي محمد علي", sub: "مالية عامة", grade: "الثانية", sem: "الثاني", lang: "إنجليزي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.د/ علي مجاهد / د/ وجدان حجاج", sub: "تطبيقات محاسبية وإدارية على الحاسب", grade: "الثانية", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ أحمد قمرة / د/ حنان عادل / د/ صابر فتحي", sub: "قانون تجاري وسياسات مالية", grade: "الثانية", sem: "الثاني", lang: "إنجليزي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.م.د/ عزت قناوي", sub: "اقتصاد تحليلي", grade: "الثالثة", sem: "الثاني", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.د/ سيد عبد الفتاح / أ.م.د/ إيمان الجمهودي", sub: "أصول مراجعة ورقابة داخلية", grade: "الثالثة", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ حنان عادل", sub: "تنمية وتخطيط", grade: "الثالثة", sem: "الثاني", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.م.د/ أيمن صبري / د/ أحمد رمزي", sub: "تطبيقات محاسبية وإحصائية", grade: "الثالثة", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ محمد أبو القمصان / أ.م.د/ أسامة الطبلاوي", sub: "إدارة الاستثمار", grade: "الثالثة", sem: "الثاني", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ إيناس العباسي", sub: "إدارة أعمال دولية", grade: "الثالثة", sem: "الثاني", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ ياسر الشافعي / د/ إبراهيم المنشاوي", sub: "محاسبة ضريبية", grade: "الثالثة", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ عصام البدري", sub: "تنمية وتخطيط", grade: "الثالثة", sem: "الثاني", lang: "إنجليزي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.د/ علي مجاهد", sub: "محاسبة ضريبية", grade: "الثالثة", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي / أ.م.د/ أيمن صبري", sub: "تطبيقات محاسبية وإحصائية على الحاسب", grade: "الثالثة", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ وجدان حجاج", sub: "إدارة أعمال دولية", grade: "الثالثة", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ عصام البدري", sub: "اقتصاد تحليلي", grade: "الثالثة", sem: "الثاني", lang: "إنجليزي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.م.د/ أيمن صبري", sub: "أصول مراجعة ورقابة داخلية", grade: "الثالثة", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ محمد المسيري", sub: "إدارة استثمار", grade: "الثالثة", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.م.د/ نها عبد اللطيف", sub: "إحصاء سكاني", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "د/ أحمد رمزي", sub: "نظرية العينات", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي", sub: "تصميم وتحليل وتجارب", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "د/ أحمد عيد", sub: "مشاكل اقتصادية معاصرة", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "د/ أحمد رمزي", sub: "اقتصاد قياسي", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي", sub: "لغة برمجة حاسب آلي", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ وليد عفيفي", sub: "إحصاء رياضي", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "احصاء", year: "2025/2026"},
+  {dr: "أ.د/ إيهاب أبو خزانة / د/ نسمة السيد", sub: "محاسبة منشآت متخصصة", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ إبراهيم الطحان", sub: "تكاليف معيارية وموازنات", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ محمد المسيري / د/ نهلة عوض", sub: "أسواق ومؤسسات مالية", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ علي مجاهد / د/ محمد سلطان", sub: "محاسبة إدارية متقدمة", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ هبة الطنطاوي / د/ غادة حمدي", sub: "بحوث العمليات في المحاسبة", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ أحمد عيد", sub: "مشاكل اقتصادية معاصرة", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.م.د/ إبراهيم زكريا / د/ وائل شوقي", sub: "محاسبة دولية", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ أيمن صبري", sub: "تكاليف معيارية وموازنات", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ محمد عبد الله", sub: "بحوث العمليات في المحاسبة", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ محمد المسيري", sub: "أسواق ومؤسسات مالية", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ علي مجاهد", sub: "محاسبة منشآت متخصصة", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ إبراهيم منشاوي", sub: "محاسبة دولية", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "د/ محمد عبد الله", sub: "محاسبة إدارية متقدمة", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ علي محمد علي", sub: "مشاكل اقتصادية معاصرة", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "أ.م.د/ شاهيستا السعيد", sub: "تسويق دولي", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ وليد أبو حلوة", sub: "إدارة مشروعات صغيرة", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ محمد المسيري / د/ نهلة عوض", sub: "أسواق ومؤسسات مالية", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ شيرين أبو وردة", sub: "إعلان وعلاقات عامة", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ أحمد عيد", sub: "مشاكل اقتصادية معاصرة", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "د/ محمد سلطان", sub: "محاسبة إدارية متقدمة", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ ممدوح عبد الفتاح", sub: "دراسة جدوى المشروعات", grade: "الرابعة", sem: "الثاني", lang: "عربي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ محمد المسيري", sub: "أسواق ومؤسسات مالية", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ وجدان حجاج", sub: "دراسة جدوى المشروعات", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "أ.د/ علي عبد القادر", sub: "إعلان وعلاقات عامة", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ إبراهيم منشاوي / د/ محمد عبد الله", sub: "محاسبة إدارية متقدمة", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "محاسبه", year: "2025/2026"},
+  {dr: "أ.م.د/ علي محمد علي", sub: "مشاكل اقتصادية معاصرة", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "اقتصاد", year: "2025/2026"},
+  {dr: "د/ سماح عادل", sub: "تسويق دولي", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"},
+  {dr: "د/ سماح عادل", sub: "إدارة مشروعات صغيرة", grade: "الرابعة", sem: "الثاني", lang: "إنجليزي", dept: "ادارة اعمال", year: "2025/2026"}
+];
+
+// ==========================================
+// 2. سكربتات داشبوردات (المعايير - الكنترول - الأسئلة)
+// ==========================================
+var STD_SHEET_ID  = '1zR-i-p6Zwhw9N67vqLq7F3kiJbFTK5omNkUalpJ78oI';
+var CTRL_SHEET_ID = '1u3AH1rgPLwza4u9rjQfzMPNDzQu5Em1zWa9ByLXvXKA';
+var QA_SHEET_ID   = '1iBiipx2zDyjEKet_BRQ4Hux8_hFKq0Mzcxn4WBq42s0';
+
+async function fetchSheetData(id) {
+  var url = 'https://docs.google.com/spreadsheets/d/' + id + '/gviz/tq?tqx=out:json';
+  var res = await fetch(url);
+  var text = await res.text();
+  var json = JSON.parse(text.substring(47).slice(0,-2));
+  return json.table.rows;
+}
+function safeVal(row, idx) { try { return row.c[idx] && row.c[idx].v ? String(row.c[idx].v).trim() : ''; } catch(e) { return ''; } }
+
+// --- الكنترول ---
+var ctrlData = [];
+async function ctrlLoad() {
+  try {
+    var rows = await fetchSheetData(CTRL_SHEET_ID); ctrlData = [];
+    rows.slice(1).forEach(row => { var name=safeVal(row,1), year=safeVal(row,2), grade=safeVal(row,3), lang=safeVal(row,4), sem=safeVal(row,5); if(name) ctrlData.push({name, year, grade, lang, sem}); });
+    ctrlFilter();
+  } catch(e) { console.error('Error loading Control data'); }
+}
+function ctrlFilter() {
+  document.getElementById('ctrl-metrics').innerHTML = `<div style="background:#f8faff;border-radius:14px;border:1.5px solid #dde4f0;padding:1rem;"><div style="font-size:12px;color:#607d9e;margin-bottom:6px;">إجمالي التقارير المرفوعة</div><div style="font-size:26px;font-weight:900;color:#0d1b4b;">${ctrlData.length}</div></div>`;
+  document.getElementById('ctrl-tbody').innerHTML = ctrlData.length ? ctrlData.map(d => `<tr style="border-bottom:1px solid #f0f4fb;"><td style="padding:9px 14px;color:#2c3e6b;">${d.name}</td><td style="padding:9px 14px;color:#607d9e;font-size:12px;">${d.grade} - ${d.sem}</td><td style="padding:9px 14px;text-align:center;"><span style="display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:#e8f5e9;color:#2e7d32;">تم الرفع</span></td></tr>`).join('') : '<tr><td colspan="3" style="text-align:center;padding:2rem;color:#9e9e9e;">لا توجد بيانات</td></tr>';
+}
+
+// --- الأسئلة ---
+var qaData = [];
+async function qaLoad() {
+  try {
+    var rows = await fetchSheetData(QA_SHEET_ID); qaData = [];
+    rows.slice(1).forEach(row => { var name=safeVal(row,1), year=safeVal(row,2), grade=safeVal(row,3), lang=safeVal(row,4), sem=safeVal(row,5), course=safeVal(row,6), hasQ=safeVal(row,7)!=='', hasA=safeVal(row,8)!==''; if(name) qaData.push({name, course, hasQ, hasA}); });
+    qaFilter();
+  } catch(e) { console.error('Error loading QA data'); }
+}
+function qaFilter() {
+  document.getElementById('qa-metrics').innerHTML = `<div style="background:#f8faff;border-radius:14px;border:1.5px solid #dde4f0;padding:1rem;"><div style="font-size:12px;color:#607d9e;margin-bottom:6px;">إجمالي النماذج</div><div style="font-size:26px;font-weight:900;color:#0d1b4b;">${qaData.length}</div></div>`;
+  const badge = v => `<span style="display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;${v?'background:#e8f5e9;color:#2e7d32':'background:#fce4ec;color:#b71c1c'}">${v?'تم':'لا'}</span>`;
+  document.getElementById('qa-tbody').innerHTML = qaData.length ? qaData.map(d => `<tr style="border-bottom:1px solid #f0f4fb;"><td style="padding:9px 14px;color:#2c3e6b;">${d.name}<br><span style="font-size:11px;color:#1565c0;">${d.course}</span></td><td style="padding:9px 14px;text-align:center;">${badge(d.hasQ)}</td><td style="padding:9px 14px;text-align:center;">${badge(d.hasA)}</td></tr>`).join('') : '<tr><td colspan="3" style="text-align:center;padding:2rem;color:#9e9e9e;">لا توجد بيانات</td></tr>';
+}
+
+// --- المعايير ---
+var INST_STANDARDS = ["التخطيط الاستراتيجي","القيادة والحوكمة","إدارة الجودة والتطوير","أعضاء هيئة التدريس والهيئة المعاونة","الجهاز الإداري","الموارد المالية والمادية","المعايير الأكاديمية والبرامج التعليمية","الطلاب والخريجون","البحث العلمي والأنشطة العلمية","الدراسات العليا","المشاركة المجتمعية وتنمية البيئة","التدريس والتعلم"];
+var PROG_STANDARDS = ["رسالة وإدارة البرنامج","تصميم البرنامج","التعليم والتعلم والتقييم","الطلاب والخريجون (برامجي)","أعضاء هيئة التدريس والهيئة المعاونة (برامجي)","الموارد ومصادر التعلم والتسهيلات الداعمة","ضمان الجودة وتقييم البرامج"];
+var stdData = {};
+async function stdLoad() {
+  try {
+    var rows = await fetchSheetData(STD_SHEET_ID); stdData = {}; INST_STANDARDS.concat(PROG_STANDARDS).forEach(s=>stdData[s]=[]);
+    rows.slice(1).forEach(row=>{
+      var stdName=safeVal(row,2), docName=safeVal(row,4), member=safeVal(row,1), matched=null;
+      INST_STANDARDS.concat(PROG_STANDARDS).forEach(s=>{ if(stdName===s||stdName.includes(s)||s.includes(stdName)) matched=s; });
+      if(matched) stdData[matched].push({docName, member});
+    });
+    stdRender();
+  } catch(e) { console.error('Error loading Standards data'); }
+}
+function stdRender() {
+  var totalInst = INST_STANDARDS.reduce((a,s)=>a+stdData[s].length,0), totalProg = PROG_STANDARDS.reduce((a,s)=>a+stdData[s].length,0), total = totalInst + totalProg;
+  document.getElementById('std-metrics').innerHTML = `<div style="background:#f8faff;border-radius:14px;border:1.5px solid #dde4f0;padding:1rem;"><div style="font-size:12px;color:#607d9e;margin-bottom:6px;">اجمالي الوثائق</div><div style="font-size:26px;font-weight:900;color:#0d1b4b;">${total}</div></div><div style="background:#f8faff;border-radius:14px;border:1.5px solid #dde4f0;padding:1rem;"><div style="font-size:12px;color:#607d9e;margin-bottom:6px;">وثائق مؤسسية</div><div style="font-size:26px;font-weight:900;color:#1b5e20;">${totalInst}</div></div><div style="background:#f8faff;border-radius:14px;border:1.5px solid #dde4f0;padding:1rem;"><div style="font-size:12px;color:#607d9e;margin-bottom:6px;">وثائق برامجية</div><div style="font-size:26px;font-weight:900;color:#1565c0;">${totalProg}</div></div>`;
+  
+  var standards = [];
+  INST_STANDARDS.forEach(s=>standards.push({name:s,type:'inst',docs:stdData[s]}));
+  PROG_STANDARDS.forEach(s=>standards.push({name:s,type:'prog',docs:stdData[s]}));
+  document.getElementById('std-grid').innerHTML = standards.map(s=>{
+    if(s.docs.length === 0) return '';
+    var color = s.type==='inst'?'#1b5e20':'#1565c0', bgColor = s.type==='inst'?'#e8f5e9':'#e3f2fd', typeLabel = s.type==='inst'?'مؤسسي':'برامجي';
+    var docsList = s.docs.map(d=>`<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #f0f4fb;"><i class="fas fa-file-alt" style="color:${color};font-size:12px;margin-top:2px;flex-shrink:0;"></i><div><div style="font-size:12px;font-weight:700;color:#2c3e6b;">${d.docName||'مستند'}</div></div></div>`).join('');
+    return `<div style="background:#fff;border-radius:16px;border:1.5px solid ${color};overflow:hidden;"><div style="padding:12px 14px;background:${bgColor};display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:13px;font-weight:800;color:#0d1b4b;">${s.name}</div><span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:${bgColor};color:${color};border:1px solid ${color};">${typeLabel}</span></div><div style="text-align:center;background:${color};color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;">${s.docs.length}</div></div><div style="padding:8px 14px;max-height:160px;overflow-y:auto;">${docsList}</div></div>`;
+  }).join('');
+}
+
+// ==========================================
+// 3. داشبورد تسليم المقررات المطور
+// ==========================================
+const DES_SHEET_ID = '1XxgMw5kLWMdO5seomWM1Kmwt4b4As0EmUfQN9PjT8w0';
+const REP_SHEET_ID = '1XaJeEHIohHgKX2wcgSec5FuFFnbF14Cl7DsLsM0Jgbs';
+let allDbData = []; let _gradeChart, _typeChart;
+
+function cleanText(text) {
+  if (!text) return '';
+  let t = text.trim().replace(/\s+/g, ' ');
+  if (t.includes('عربي')) t = 'عربي';
+  if (t.includes('نجليزي')) t = 'انجليزي';
+  return t.replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه');
+}
+
+function parseResponses(rows) {
+  if(!rows || rows.length === 0) return [];
+  const headers = rows[0]; const map = { sub:-1, lang:-1 };
+  if (!headers.c) return [];
+  headers.c.forEach((cell, idx) => {
+    if(!cell || !cell.v) return;
+    const v = String(cell.v).trim();
+    if(v.includes('مقرر') || v.includes('مادة')) map.sub = idx;
+    if(v.includes('لغة') || v.includes('اللغة')) map.lang = idx;
+  });
+  const data = [];
+  rows.slice(1).forEach(row => {
+    if (!row || !row.c) return;
+    const sub = map.sub >= 0 ? colVal(row, map.sub) : '';
+    const lang = map.lang >= 0 ? colVal(row, map.lang) : '';
+    if(sub) data.push({ sub, lang });
+  });
+  return data;
+}
+
+async function dbLoad() {
+  document.getElementById('db-loading').style.display = 'block'; document.getElementById('db-content').style.display = 'none'; document.getElementById('db-error').style.display = 'none';
+  try {
+    const planData = PLAN_DATA; 
+    const [desRows, repRows] = await Promise.all([ fetchSheetData(DES_SHEET_ID), fetchSheetData(REP_SHEET_ID) ]);
+    const desData = parseResponses(desRows), repData = parseResponses(repRows);
+    
+    const desMap = {}, repMap = {};
+    desData.forEach(d => { desMap[`${cleanText(d.sub)}|${cleanText(d.lang)}`] = true; });
+    repData.forEach(d => { repMap[`${cleanText(d.sub)}|${cleanText(d.lang)}`] = true; });
+    
+    allDbData = planData.map(c => {
+      const key = `${cleanText(c.sub)}|${cleanText(c.lang)}`;
+      return { ...c, des: !!desMap[key], rep: !!repMap[key] };
+    });
+    
+    document.getElementById('db-lastupdate').textContent = 'آخر تحديث: ' + new Date().toLocaleTimeString('ar-EG');
+    document.getElementById('db-loading').style.display = 'none'; document.getElementById('db-content').style.display = 'block'; dbFilter();
+  } catch(e) { document.getElementById('db-loading').style.display = 'none'; document.getElementById('db-error').style.display = 'block'; }
+}
+
+function dbFilter() {
+  const fg = document.getElementById('db-grade').value, fl = document.getElementById('db-lang').value, fStatus = document.getElementById('db-status').value, fd = document.getElementById('db-dept').value;
+  const filtered = allDbData.filter(d => {
+    let sMatch = true;
+    if(fStatus === 'done') sMatch = d.des && d.rep;
+    if(fStatus === 'pending') sMatch = !d.des && !d.rep;
+    if(fStatus === 'partial') sMatch = (d.des || d.rep) && !(d.des && d.rep);
+    return (!fg || d.grade.includes(fg)) && (!fl || cleanText(d.lang).includes(cleanText(fl))) && (!fd || d.dept.includes(fd)) && sMatch;
+  });
+
+  const total = filtered.length, done = filtered.filter(d => d.des && d.rep).length, partial = filtered.filter(d => (d.des || d.rep) && !(d.des && d.rep)).length, pending = filtered.filter(d => !d.des && !d.rep).length, pct = total ? Math.round(done / total * 100) : 0;
+  
+  document.getElementById('db-metrics').innerHTML = `
+    <div style="background:#f8faff;border-radius:14px;border:1.5px solid #dde4f0;padding:1rem;"><div style="font-size:12px;color:#607d9e;margin-bottom:6px;">إجمالي المقررات بالخطة</div><div style="font-size:26px;font-weight:900;color:#0d1b4b;">${total}</div></div>
+    <div style="background:#f8faff;border-radius:14px;border:1.5px solid #dde4f0;padding:1rem;"><div style="font-size:12px;color:#607d9e;margin-bottom:6px;">مكتمل (توصيف وتقرير)</div><div style="font-size:26px;font-weight:900;color:#2e7d32;">${done}</div></div>
+    <div style="background:#fce4ec;border-radius:14px;border:1.5px solid #f8bbd0;padding:1rem;"><div style="font-size:12px;color:#c2185b;margin-bottom:6px;">لم يسلم / متأخر</div><div style="font-size:26px;font-weight:900;color:#b71c1c;">${pending + partial}</div></div>
+    <div style="background:#e3f2fd;border-radius:14px;border:1.5px solid #90caf9;padding:1rem;"><div style="font-size:12px;color:#1565c0;margin-bottom:6px;">نسبة الإنجاز الكلية</div><div style="font-size:26px;font-weight:900;color:#1565c0;">${pct}%</div></div>`;
+  
+  const badge = v => `<span style="display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;${v?'background:#e8f5e9;color:#2e7d32':'background:#fce4ec;color:#b71c1c'}">${v?'تم':'لم يُسلِّم'}</span>`;
+  
+  document.getElementById('db-tbody').innerHTML = filtered.length ? filtered.map(d => `<tr style="border-bottom:1px solid #f0f4fb;background:${(!d.des&&!d.rep)?'#fff9f9':''}"><td style="padding:9px 14px;color:#2c3e6b;font-weight:${(!d.des||!d.rep)?'700':'400'}">${d.dr}</td><td style="padding:9px 14px;color:#2c3e6b;font-weight:bold;">${d.sub}</td><td style="padding:9px 14px;color:#607d9e;font-size:12px;">${d.grade}<br><span style="font-size:10px;">${d.sem}</span></td><td style="padding:9px 14px;color:#607d9e;font-size:12px;">${d.lang}<br><span style="color:#1565c0;font-size:10px;">${d.dept}</span></td><td style="padding:9px 14px;text-align:center;">${badge(d.des)}</td><td style="padding:9px 14px;text-align:center;">${badge(d.rep)}</td></tr>`).join('') : '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#9e9e9e;">لا توجد بيانات مطابقة</td></tr>';
+
+  const grades = ['الأولى','الثانية','الثالثة','الرابعة'];
+  const gradePct = grades.map(g => { const t = filtered.filter(d => d.grade.includes(g)); return t.length ? Math.round(t.filter(d => d.des && d.rep).length / t.length * 100) : 0; });
+  if(_gradeChart) _gradeChart.destroy(); _gradeChart = new Chart(document.getElementById('gradeChart'), {type:'bar',data:{labels:grades, datasets:[{label:'%', data:gradePct, backgroundColor:'#1565c0', borderRadius:6}]},options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},scales:{y:{max:100}}}});
+  if(_typeChart) _typeChart.destroy(); _typeChart = new Chart(document.getElementById('typeChart'), {type:'doughnut',data:{labels:['سلّم التوصيف','سلّم التقرير','لم يُسلِّم'],datasets:[{data:[filtered.filter(d=>d.des).length, filtered.filter(d=>d.rep).length, Math.max(0, total-Math.max(filtered.filter(d=>d.des).length,filtered.filter(d=>d.rep).length))],backgroundColor:['#1565c0','#0d1b4b','#fce4ec'], borderWidth:0}]},options:{responsive:true, maintainAspectRatio:false, cutout:'65%',plugins:{legend:{position:'bottom'}}}});
+}
+
+// ----------------------------------------------------
+window.addEventListener('load', function() {
+  stdLoad(); ctrlLoad(); qaLoad(); dbLoad();
+});
+
+function showPage(page) {
+  document.querySelectorAll('.page-content').forEach(el => el.style.display = 'none');
+  var hero = document.querySelector('.hero'), statsRow = document.querySelector('.stats-row');
+  if (page === 'home') {
+    if (hero) hero.style.display = 'block'; if (statsRow) statsRow.style.display = 'flex';
+  } else {
+    if (hero) hero.style.display = 'none'; if (statsRow) statsRow.style.display = 'none';
+    var el = document.getElementById('page-' + page); if (el) el.style.display = 'block';
+  }
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function filterCards(cat, btn) {
+  document.querySelectorAll('#forms-section .sub-tab').forEach(t => t.classList.remove('active')); btn.classList.add('active');
+  document.querySelectorAll('#cardsGrid .form-card').forEach(card => { card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none'; });
+}
+</script>
+</body>
+</html>
