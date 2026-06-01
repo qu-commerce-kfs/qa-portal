@@ -403,8 +403,8 @@
       display: flex !important;
       flex-direction: row !important;
       align-items: stretch !important;
-      z-index: 2147483647 !important;
-      overflow: visible !important;
+      z-index: 2147483000 !important;
+      overflow: hidden !important;
       margin: 0 !important;
       flex-shrink: 0 !important;
       transform: none !important;
@@ -422,17 +422,12 @@
       line-height: 1.25 !important;
       white-space: normal !important;
       text-align: center !important;
-      overflow: visible !important;
+      overflow: hidden !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
       gap: 4px !important;
       box-shadow: -4px 0 10px rgba(0,0,0,0.12) !important;
-      position: fixed !important;
-      z-index: 2147483647 !important;
-      top: 0 !important;
-      right: 0 !important;
-      height: 54px !important;
     }
 
     .vision-ticker-label i {
@@ -507,15 +502,163 @@
        حتى لا تغطي جداول الداشبورد على نص الشريط أثناء التحميل */
     #page-dashboards {
       position: relative !important;
+      z-index: 1 !important;
       overflow: visible !important;
-      padding-top: 0 !important;
-      margin-top: 60px !important;
+      padding-top: 72px !important;
+      margin-top: 0 !important;
     }
 
     #page-dashboards #standards-dashboard {
       margin-top: 0 !important;
     }
-  }</style>
+  }
+
+/* === FINAL MOBILE FIX: شريط الرؤية والرسالة فوق الداشبورد بدون قص أو تغطية === */
+@media (max-width: 768px) {
+  html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    padding-top: 66px !important;
+  }
+
+  nav { display: none !important; }
+
+  .vision-ticker,
+  body .vision-ticker {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    height: 66px !important;
+    min-height: 66px !important;
+    max-height: 66px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    overflow: hidden !important;
+    z-index: 2147483647 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    transform: translate3d(0,0,0) !important;
+    -webkit-transform: translate3d(0,0,0) !important;
+    direction: rtl !important;
+  }
+
+  .vision-ticker-label {
+    flex: 0 0 108px !important;
+    width: 108px !important;
+    min-width: 108px !important;
+    max-width: 108px !important;
+    height: 66px !important;
+    min-height: 66px !important;
+    max-height: 66px !important;
+    padding: 6px 5px !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+    text-align: center !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    box-sizing: border-box !important;
+  }
+
+  .vision-ticker-label i {
+    font-size: 11px !important;
+    flex: 0 0 auto !important;
+  }
+
+  .vision-ticker-label span {
+    display: inline-block !important;
+    white-space: normal !important;
+    line-height: 1.25 !important;
+  }
+
+  .vision-ticker-mask {
+    flex: 1 1 0% !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 66px !important;
+    min-height: 66px !important;
+    max-height: 66px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    direction: ltr !important;
+  }
+
+  .vision-ticker-track {
+    width: max-content !important;
+    min-width: max-content !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    animation: visionTickerMove 46s linear infinite !important;
+    animation-play-state: running !important;
+    will-change: transform !important;
+  }
+
+  .vision-ticker-group {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    gap: 20px !important;
+    padding-left: 20px !important;
+    height: auto !important;
+  }
+
+  .vision-ticker-item,
+  .vision-ticker-sep {
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    flex-wrap: nowrap !important;
+    height: auto !important;
+    line-height: 1.5 !important;
+    overflow: visible !important;
+  }
+
+  .vision-ticker-item i { font-size: 12px !important; }
+
+  /* تنزيل داشبورد المعايير نفسه أسفل الشريط، وليس تغيير الشريط */
+  #page-dashboards {
+    padding-top: 118px !important;
+    margin-top: 0 !important;
+    position: relative !important;
+    z-index: 0 !important;
+    overflow: visible !important;
+    clear: both !important;
+  }
+
+  #page-dashboards #standards-dashboard {
+    margin-top: 0 !important;
+    padding-top: 3rem !important;
+    position: relative !important;
+    z-index: 0 !important;
+  }
+
+  #page-dashboards *,
+  #standards-dashboard * {
+    max-width: 100%;
+  }
+}
+
+</style>
 </head>
 <body>
 
@@ -1091,27 +1234,159 @@ async function stdLoad() {
   document.getElementById('std-loading').style.display = 'block';
   document.getElementById('std-content').style.display = 'none';
   document.getElementById('std-error').style.display = 'none';
+
   try {
-    var url = 'https://docs.google.com/spreadsheets/d/' + STD_SHEET_ID + '/gviz/tq?tqx=out:json';
+    var url = 'https://docs.google.com/spreadsheets/d/' + STD_SHEET_ID + '/gviz/tq?tqx=out:json&headers=1';
     var res = await fetch(url);
     var text = await res.text();
-    var json = JSON.parse(text.substring(47).slice(0,-2));
-    var rows = json.table.rows;
+
+    var jsonStart = text.indexOf('{');
+    var jsonEnd = text.lastIndexOf('}');
+    if (jsonStart === -1 || jsonEnd === -1) {
+      throw new Error('لم يتم استلام بيانات صحيحة من Google Sheets. تأكد من نشر الشيت أو إتاحة الوصول.');
+    }
+
+    var json = JSON.parse(text.substring(jsonStart, jsonEnd + 1));
+    var cols = (json.table && json.table.cols) ? json.table.cols : [];
+    var rows = (json.table && json.table.rows) ? json.table.rows : [];
 
     stdData = {};
     INST_STANDARDS.concat(PROG_STANDARDS).forEach(function(s){ stdData[s] = []; });
 
-    rows.slice(1).forEach(function(row){
+    function clean(v) {
+      return (v === null || v === undefined) ? '' : String(v).replace(/\s+/g, ' ').trim();
+    }
+
+    function normalizeArabic(v) {
+      return clean(v)
+        .replace(/[أإآ]/g, 'ا')
+        .replace(/ة/g, 'ه')
+        .replace(/ى/g, 'ي')
+        .replace(/[ـ\u064B-\u0652]/g, '')
+        .replace(/[()\[\]{}«»]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function cell(row, index) {
+      if (index < 0 || !row.c || !row.c[index]) return '';
+      var c = row.c[index];
+      return clean(c.f || c.v || '');
+    }
+
+    function cellRaw(row, index) {
+      if (index < 0 || !row.c || !row.c[index]) return '';
+      var c = row.c[index];
+      return c.v || c.f || '';
+    }
+
+    function colLabel(index) {
+      if (!cols[index]) return '';
+      return clean(cols[index].label || cols[index].id || '');
+    }
+
+    function findCol(possibleNames) {
+      var needles = possibleNames.map(function(x){ return normalizeArabic(x).toLowerCase(); });
+      for (var i = 0; i < cols.length; i++) {
+        var label = normalizeArabic(colLabel(i)).toLowerCase();
+        for (var j = 0; j < needles.length; j++) {
+          if (label && label.indexOf(needles[j]) !== -1) return i;
+        }
+      }
+      return -1;
+    }
+
+    function findUrlInText(v) {
+      v = clean(v);
+      var m = v.match(/https?:\/\/[^\s,]+/i);
+      return m ? m[0] : '';
+    }
+
+    function bestUrlFromRow(row) {
+      if (!row.c) return '';
+      for (var i = 0; i < row.c.length; i++) {
+        var value = cell(row, i);
+        var url = findUrlInText(value);
+        if (url) return url;
+      }
+      return '';
+    }
+
+    function bestDocNameFromRow(row, preferredCol, fileUrl) {
+      var preferred = cell(row, preferredCol);
+      if (preferred && preferred !== fileUrl) return preferred;
+
+      // ابحث عن أول خلية مناسبة تصلح كاسم وثيقة، مع استبعاد التاريخ والاسم والمعيار والروابط
+      for (var i = 0; i < (row.c ? row.c.length : 0); i++) {
+        var label = normalizeArabic(colLabel(i));
+        var value = cell(row, i);
+        if (!value) continue;
+        if (findUrlInText(value)) continue;
+        if (/timestamp|طابع|زمني|تاريخ|اسم عضو|الاسم|المعيار|standard|name/i.test(label)) continue;
+        if (value.length > 120) continue;
+        return value;
+      }
+      return 'ملف مرفوع';
+    }
+
+    var memberCol = findCol([
+      'اسم عضو الفريق', 'عضو الفريق', 'اسم القائم بالرفع', 'القائم بالرفع',
+      'الاسم', 'name', 'member', 'uploader'
+    ]);
+
+    var standardCol = findCol([
+      'اسم المعيار', 'اختر المعيار', 'المعيار', 'معيار', 'standard'
+    ]);
+
+    var docCol = findCol([
+      'اسم الوثيقة', 'نوع الوثيقة', 'عنوان الوثيقة', 'الوثيقة',
+      'اسم المستند', 'المستند', 'document', 'doc name'
+    ]);
+
+    var fileCol = findCol([
+      'رابط الملف', 'رفع الملف', 'تحميل الملف', 'الملف', 'المرفق',
+      'file upload', 'upload file', 'drive', 'attachment'
+    ]);
+
+    // احتياطي مطابق للترتيب القديم في حالة عدم تعرف الكود على أسماء الأعمدة
+    if (memberCol === -1) memberCol = 1;
+    if (standardCol === -1) standardCol = 2;
+    if (docCol === -1) docCol = 4;
+    if (fileCol === -1) fileCol = docCol;
+
+    rows.forEach(function(row){
       try {
-        var stdName = row.c[2] && row.c[2].v ? String(row.c[2].v).trim() : '';
-        var docName = row.c[4] && row.c[4].v ? String(row.c[4].v).trim() : '';
-        var member  = row.c[1] && row.c[1].v ? String(row.c[1].v).trim() : '';
+        var stdName = cell(row, standardCol);
+        var member = cell(row, memberCol);
+        var fileValue = cell(row, fileCol);
+        var fileUrl = findUrlInText(fileValue) || bestUrlFromRow(row);
+        var docName = bestDocNameFromRow(row, docCol, fileValue);
+
+        var normStd = normalizeArabic(stdName);
         var matched = null;
+
         INST_STANDARDS.concat(PROG_STANDARDS).forEach(function(s){
-          if(stdName === s || stdName.includes(s) || s.includes(stdName)) matched = s;
+          var normS = normalizeArabic(s);
+          if (
+            normStd === normS ||
+            normStd.indexOf(normS) !== -1 ||
+            normS.indexOf(normStd) !== -1 ||
+            normStd.replace('برامجي','').trim() === normS.replace('برامجي','').trim()
+          ) {
+            matched = s;
+          }
         });
-        if(matched) stdData[matched].push({docName:docName, member:member});
-      } catch(e){}
+
+        if (matched) {
+          stdData[matched].push({
+            docName: docName || 'ملف مرفوع',
+            member: member,
+            file: fileUrl || fileValue || ''
+          });
+        }
+      } catch(rowError) {
+        console.warn('خطأ في قراءة صف من صفوف وثائق المعايير:', rowError);
+      }
     });
 
     document.getElementById('std-lastupdate').textContent = 'اخر تحديث: ' + new Date().toLocaleTimeString('ar-EG');
@@ -1119,7 +1394,7 @@ async function stdLoad() {
     document.getElementById('std-content').style.display = 'block';
     stdRender();
   } catch(e) {
-    console.error(e);
+    console.error('STD DASHBOARD ERROR:', e);
     document.getElementById('std-loading').style.display = 'none';
     document.getElementById('std-error').style.display = 'block';
   }
@@ -1168,23 +1443,28 @@ function stdRender() {
   var instLabels = INST_STANDARDS.map(function(s){return s.length>10?s.substring(0,10)+'...':s;});
   var progLabels = PROG_STANDARDS.map(function(s){return s.length>12?s.substring(0,12)+'...':s;});
 
-  if(_stdInstChart) _stdInstChart.destroy();
-  _stdInstChart = new Chart(document.getElementById('stdInstChart'),{
-    type:'bar',
-    data:{labels:instLabels,datasets:[{label:'وثائق',data:instCounts,backgroundColor:'#1b5e20',borderRadius:4}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-      scales:{y:{ticks:{stepSize:1,font:{size:9}},grid:{color:'rgba(0,0,0,0.04)'}},
-              x:{ticks:{font:{size:8},maxRotation:45},grid:{display:false}}}}
-  });
+  // رسم المخططات اختياري: لو مكتبة Chart.js لم تحمل على بعض الأجهزة، لا نوقف تحميل بيانات الداشبورد
+  if (typeof Chart !== 'undefined') {
+    if(_stdInstChart) _stdInstChart.destroy();
+    _stdInstChart = new Chart(document.getElementById('stdInstChart'),{
+      type:'bar',
+      data:{labels:instLabels,datasets:[{label:'وثائق',data:instCounts,backgroundColor:'#1b5e20',borderRadius:4}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+        scales:{y:{ticks:{stepSize:1,font:{size:9}},grid:{color:'rgba(0,0,0,0.04)'}},
+                x:{ticks:{font:{size:8},maxRotation:45},grid:{display:false}}}}
+    });
 
-  if(_stdProgChart) _stdProgChart.destroy();
-  _stdProgChart = new Chart(document.getElementById('stdProgChart'),{
-    type:'bar',
-    data:{labels:progLabels,datasets:[{label:'وثائق',data:progCounts,backgroundColor:'#1565c0',borderRadius:4}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-      scales:{y:{ticks:{stepSize:1,font:{size:9}},grid:{color:'rgba(0,0,0,0.04)'}},
-              x:{ticks:{font:{size:8},maxRotation:45},grid:{display:false}}}}
-  });
+    if(_stdProgChart) _stdProgChart.destroy();
+    _stdProgChart = new Chart(document.getElementById('stdProgChart'),{
+      type:'bar',
+      data:{labels:progLabels,datasets:[{label:'وثائق',data:progCounts,backgroundColor:'#1565c0',borderRadius:4}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+        scales:{y:{ticks:{stepSize:1,font:{size:9}},grid:{color:'rgba(0,0,0,0.04)'}},
+                x:{ticks:{font:{size:8},maxRotation:45},grid:{display:false}}}}
+    });
+  } else {
+    console.warn('Chart.js لم يتم تحميلها؛ سيتم عرض بيانات الداشبورد بدون الرسوم البيانية.');
+  }
 
   var standards = [];
   if(stdCurrentFilter==='all'||stdCurrentFilter==='inst') INST_STANDARDS.forEach(function(s){standards.push({name:s,type:'inst',docs:stdData[s]});});
@@ -1197,10 +1477,16 @@ function stdRender() {
     var hasDocs = s.docs.length > 0;
     var docsList = s.docs.length > 0
       ? s.docs.map(function(d){
+          var fileText = d.docName || 'فتح الملف';
+          var fileUrl = d.file && /^https?:\/\//i.test(d.file) ? d.file : '';
+          var titleHtml = fileUrl
+            ? '<a href="'+fileUrl+'" target="_blank" rel="noopener noreferrer" style="color:#0d1b4b;text-decoration:none;">'+fileText+'</a>'
+            : fileText;
           return '<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid #f0f4fb;">' +
             '<i class="fas fa-file-alt" style="color:'+color+';font-size:12px;margin-top:2px;flex-shrink:0;"></i>' +
-            '<div><div style="font-size:12px;font-weight:700;color:#2c3e6b;">'+(d.docName||'مستند')+'</div>' +
+            '<div><div style="font-size:12px;font-weight:700;color:#2c3e6b;">'+titleHtml+'</div>' +
             (d.member?'<div style="font-size:11px;color:#9e9e9e;">'+d.member+'</div>':'') +
+            (fileUrl?'<div style="font-size:10.5px;color:#607d9e;margin-top:2px;"><i class="fas fa-external-link-alt"></i> اضغط لفتح الملف</div>':'') +
             '</div></div>';
         }).join('')
       : '<div style="text-align:center;padding:1rem;color:#bdbdbd;font-size:12px;"><i class="fas fa-inbox" style="font-size:1.5rem;display:block;margin-bottom:6px;"></i>لا توجد وثائق بعد</div>';
@@ -1769,7 +2055,7 @@ window.addEventListener('load', function() {
   qaLoad();
 });
 </script>
-<section id="dashboard-section" style="background:#f0f4fb; border-top:1px solid #dde4f0; padding:3rem 0;">
+<section id="dashboard-section" style="background:#f0f4fb; border-top:1px solid #dde4f0;">
   <div class="container">
     <div class="section-head">
       <div class="section-icon"><i class="fas fa-chart-bar"></i></div>
@@ -2294,59 +2580,64 @@ function dbFilter() {
   const desTotal = filtered.filter(d => d.des).length;
   const repTotal = filtered.filter(d => d.rep).length;
 
-  if (_gradeChart) _gradeChart.destroy();
-  _gradeChart = new Chart(document.getElementById('gradeChart'), {
-    type: 'bar',
-    data: {
-      labels: grades,
-      datasets: [{
-        label: '%',
-        data: gradePct,
-        backgroundColor: '#1565c0',
-        borderRadius: 6
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: {
-          max: 100,
-          ticks: { callback: v => v + '%', font: { size: 10 } },
-          grid: { color: 'rgba(0,0,0,0.04)' }
-        },
-        x: {
-          ticks: { font: { size: 11 } },
-          grid: { display: false }
+  // رسم المخططات اختياري: لو Chart.js لم تحمل، تظل الجداول والمؤشرات ظاهرة بدون خطأ
+  if (typeof Chart !== 'undefined') {
+    if (_gradeChart) _gradeChart.destroy();
+    _gradeChart = new Chart(document.getElementById('gradeChart'), {
+      type: 'bar',
+      data: {
+        labels: grades,
+        datasets: [{
+          label: '%',
+          data: gradePct,
+          backgroundColor: '#1565c0',
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: {
+            max: 100,
+            ticks: { callback: v => v + '%', font: { size: 10 } },
+            grid: { color: 'rgba(0,0,0,0.04)' }
+          },
+          x: {
+            ticks: { font: { size: 11 } },
+            grid: { display: false }
+          }
         }
       }
-    }
-  });
+    });
 
-  if (_typeChart) _typeChart.destroy();
-  _typeChart = new Chart(document.getElementById('typeChart'), {
-    type: 'doughnut',
-    data: {
-      labels: ['سلّم التوصيف', 'سلّم التقرير', 'لم يُسلِّم'],
-      datasets: [{
-        data: [desTotal, repTotal, Math.max(0, total - Math.max(desTotal, repTotal))],
-        backgroundColor: ['#1565c0', '#0d1b4b', '#fce4ec'],
-        borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '65%',
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: { font: { size: 11 }, boxWidth: 10, padding: 8 }
+    if (_typeChart) _typeChart.destroy();
+    _typeChart = new Chart(document.getElementById('typeChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['سلّم التوصيف', 'سلّم التقرير', 'لم يُسلِّم'],
+        datasets: [{
+          data: [desTotal, repTotal, Math.max(0, total - Math.max(desTotal, repTotal))],
+          backgroundColor: ['#1565c0', '#0d1b4b', '#fce4ec'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '65%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { font: { size: 11 }, boxWidth: 10, padding: 8 }
+          }
         }
       }
-    }
-  });
+    });
+  } else {
+    console.warn('Chart.js لم يتم تحميلها؛ سيتم عرض بيانات الداشبورد بدون الرسوم البيانية.');
+  }
 }
 
 </script>
@@ -2975,6 +3266,7 @@ function dbFilter() {
 
 <script>
 function showPage(page) {
+  document.body.classList.toggle('dashboards-active', page === 'dashboards');
   const hero = document.querySelector('.hero');
   const statsRow = document.querySelector('.stats-row');
   const pages = document.querySelectorAll('.page-content');
@@ -3010,9 +3302,6 @@ function showPage(page) {
         try { window[fnName](); } catch (err) { console.error(fnName, err); }
       }
     });
-    if (window.innerWidth <= 768) {
-      return;
-    }
   }
 
   window.scrollTo({ top: 0, behavior: window.innerWidth <= 768 ? 'auto' : 'smooth' });
