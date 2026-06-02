@@ -658,6 +658,45 @@
   }
 }
 
+
+
+/* === شريط تمرير أفقي ثابت للجداول الطويلة داخل الداشبوردات === */
+.floating-x-scroll {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: rgba(255,255,255,0.97);
+  border-top: 1.5px solid #c8d6ea;
+  box-shadow: 0 -4px 14px rgba(13,27,75,0.12);
+  z-index: 2147483646;
+  display: none;
+  direction: ltr;
+}
+.floating-x-scroll-inner { height: 1px; }
+body.has-floating-x-scroll { padding-bottom: 26px !important; }
+.sticky-x-scroll-host { direction: ltr !important; }
+.sticky-x-scroll-host > table { direction: rtl !important; }
+@media print { .floating-x-scroll { display: none !important; } }
+
+
+
+/* تحسين هامش أسماء أعضاء هيئة التدريس داخل الداشبوردات حتى لا تُقص من اليمين */
+#db-tbody td:first-child,
+#qa-tbody td:first-child,
+#ctrl-tbody td:first-child {
+  padding-right: 32px !important;
+  box-sizing: border-box !important;
+}
+#db-details-wrap th:first-child,
+#qa-details-wrap th:first-child,
+#control-dashboard th:first-child {
+  padding-right: 30px !important;
+}
+
 </style>
 </head>
 <body>
@@ -1552,7 +1591,7 @@ window.addEventListener('load', stdLoad);
         <table style="width:100%;border-collapse:collapse;font-size:13px;font-family:Cairo,sans-serif;table-layout:fixed;">
           <thead>
             <tr style="background:#f8faff;">
-              <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;width:25%;">اسم عضو هيئة التدريس</th>
+              <th style="padding:11px 30px 11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;width:25%;">اسم عضو هيئة التدريس</th>
               <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;width:15%;">العام</th>
               <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;width:15%;">الفرقة</th>
               <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;width:15%;">الفصل</th>
@@ -1630,7 +1669,7 @@ window.addEventListener('load', stdLoad);
         <table style="width:100%;min-width:1250px;border-collapse:collapse;font-size:13px;font-family:Cairo,sans-serif;table-layout:auto;">
           <thead>
             <tr style="background:#f8faff;">
-              <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;min-width:280px;width:280px;">اسم عضو هيئة التدريس</th>
+              <th style="padding:11px 30px 11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;min-width:300px;width:300px;">اسم عضو هيئة التدريس</th>
               <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;min-width:340px;width:340px;">المقرر</th>
               <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;min-width:120px;width:120px;">الفرقة</th>
               <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;min-width:145px;width:145px;">الفصل</th>
@@ -2037,7 +2076,7 @@ function qaFilter() {
     const mainColor = isComplete ? '#2c3e6b' : '#ffffff';
     const mutedColor = isComplete ? '#607d9e' : '#eaf3ff';
     return '<tr style="border-bottom:1px solid #f0f4fb;background:' + rowBg + ';">' +
-      '<td style="padding:10px 16px;color:' + mainColor + ';font-weight:' + (isComplete ? '400' : '800') + ';white-space:normal;line-height:1.7;min-width:280px;" title="' + d.dr + '">' + d.dr + '</td>' +
+      '<td style="padding:10px 32px 10px 16px;color:' + mainColor + ';font-weight:' + (isComplete ? '400' : '800') + ';white-space:normal;line-height:1.7;min-width:300px;box-sizing:border-box;" title="' + d.dr + '">' + d.dr + '</td>' +
       '<td style="padding:10px 16px;color:' + mainColor + ';font-weight:' + (isComplete ? '400' : '800') + ';white-space:normal;line-height:1.7;min-width:340px;" title="' + d.sub + '">' + d.sub + '</td>' +
       '<td style="padding:9px 14px;color:' + mutedColor + ';font-size:12px;">' + d.grade + '</td>' +
       '<td style="padding:9px 14px;color:' + mutedColor + ';font-size:12px;">' + d.sem + '</td>' +
@@ -2127,10 +2166,10 @@ window.addEventListener('load', function() {
 
       <div id="db-details-wrap" style="display:none;background:#fff;border-radius:16px;border:1.5px solid #dde4f0;overflow-x:auto;-webkit-overflow-scrolling:touch;">
         <div class="dashboard-details-hint"><i class="fas fa-info-circle"></i> هذه القائمة التفصيلية مخفية افتراضياً لتقليل طول الصفحة، ويمكن إظهارها أو إخفاؤها من الزر بالأعلى.</div>
-        <table style="width:100%;min-width:1150px;border-collapse:collapse;font-size:13px;font-family:'Cairo',sans-serif;table-layout:auto;">
+        <table style="width:100%;min-width:1180px;border-collapse:collapse;font-size:13px;font-family:'Cairo',sans-serif;table-layout:auto;">
           <thead>
             <tr style="background:#f8faff;">
-              <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;min-width:280px;width:280px;">اسم عضو هيئة التدريس</th>
+              <th style="padding:11px 30px 11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;min-width:300px;width:300px;">اسم عضو هيئة التدريس</th>
               <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;min-width:360px;width:360px;">المقرر</th>
               <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;min-width:130px;width:130px;">الفرقة</th>
               <th style="padding:11px 14px;text-align:right;font-weight:700;font-size:12px;color:#607d9e;border-bottom:1.5px solid #dde4f0;min-width:145px;width:145px;">الفصل</th>
@@ -2314,17 +2353,32 @@ let _gradeChart, _typeChart;
 function norm(str) {
   if (!str) return '';
   let t = String(str).trim()
+    .toLowerCase()
     .replace(/\s+/g, ' ')
     .replace(/[أإآ]/g, 'ا')
     .replace(/ة/g, 'ه')
-    .replace(/ى/g, 'ي');
+    .replace(/ى/g, 'ي')
+    .replace(/ؤ/g, 'و')
+    .replace(/ئ/g, 'ي')
+    .replace(/[ـًٌٍَُِّْ]/g, '')
+    .replace(/[()]/g, '')
+    .replace(/\s+و\s+/g, ' و')
+    .trim();
 
-  if (t.includes('عربي') || t.includes('عربيه') || t.toLowerCase().includes('arabic')) return 'عربي';
-  if (t.includes('نجليزي') || t.includes('نجليزيه') || t.toLowerCase().includes('english')) return 'انجليزي';
+  // توحيد صيغ اللغة حتى لا تختلف عربي/عربية/Arabic أو إنجليزي/English
+  if (t.includes('عربي') || t.includes('عربيه') || t.includes('arabic')) return 'عربي';
+  if (t.includes('نجليزي') || t.includes('نجليزيه') || t.includes('english')) return 'انجليزي';
+
+  // توحيد صيغ الفرق الدراسية: سبب عدم ظهور مواد مثل "محاسبة حكومية وقومية"
+  // أن الخطة قد تكتب "الثالثه" بينما نموذج الرفع يكتب "الفرقة الثالثة".
+  if (t.includes('الاولي') || t.includes('الاوله') || t.includes('الفرقه الاولي') || t.includes('الفرقه الاوله') || t === '1') return 'الفرقه الاولي';
+  if (t.includes('الثانيه') || t.includes('الفرقه الثانيه') || t === '2') return 'الفرقه الثانيه';
+  if (t.includes('الثالثه') || t.includes('الفرقه الثالثه') || t === '3') return 'الفرقه الثالثه';
+  if (t.includes('الرابعه') || t.includes('الفرقه الرابعه') || t === '4') return 'الفرقه الرابعه';
 
   // توحيد صيغ الفصل الدراسي لزيادة دقة المطابقة بين الخطة وشيت الرفع
-  if (t === 'الاول' || t === 'الفصل الدراسي الاول' || t === 'ترم اول') return 'الفصل الدراسي الاول';
-  if (t === 'الثاني' || t === 'الفصل الدراسي الثاني' || t === 'ترم ثاني') return 'الفصل الدراسي الثاني';
+  if (t === 'الاول' || t === 'الفصل الدراسي الاول' || t === 'ترم اول' || t === 'الفصل الاول') return 'الفصل الدراسي الاول';
+  if (t === 'الثاني' || t === 'الفصل الدراسي الثاني' || t === 'ترم ثاني' || t === 'الفصل الثاني') return 'الفصل الدراسي الثاني';
 
   return t;
 }
@@ -2559,7 +2613,7 @@ function dbFilter() {
     const mutedColor = isComplete ? '#607d9e' : '#eaf3ff';
     return `
     <tr style="border-bottom:1px solid #f0f4fb;background:${rowBg};">
-      <td style="padding:10px 16px;color:${mainColor};font-weight:${isComplete ? '400' : '800'};white-space:normal;line-height:1.7;min-width:280px;" title="${d.dr}">${d.dr}</td>
+      <td style="padding:10px 32px 10px 16px;color:${mainColor};font-weight:${isComplete ? '400' : '800'};white-space:normal;line-height:1.7;min-width:300px;box-sizing:border-box;" title="${d.dr}">${d.dr}</td>
       <td style="padding:10px 16px;color:${mainColor};font-weight:${isComplete ? '400' : '800'};white-space:normal;line-height:1.7;min-width:360px;" title="${d.sub}">${d.sub}</td>
       <td style="padding:9px 14px;color:${mutedColor};font-size:12px;">${d.grade}</td>
       <td style="padding:9px 14px;color:${mutedColor};font-size:12px;">${d.sem}</td>
@@ -3480,6 +3534,125 @@ function toggleDashboardDetails(panelId, buttonId, showText, hideText) {
     ? '<i class="fas fa-eye-slash"></i> ' + hideText
     : '<i class="fas fa-list"></i> ' + showText;
 }
+</script>
+
+
+<script>
+/* شريط تمرير أفقي ثابت يظهر دائمًا أسفل الشاشة عند وجود جدول عريض */
+(function(){
+  var bar, inner, activeHost = null, syncing = false;
+
+  function ensureBar(){
+    if (bar) return;
+    bar = document.createElement('div');
+    bar.className = 'floating-x-scroll';
+    inner = document.createElement('div');
+    inner.className = 'floating-x-scroll-inner';
+    bar.appendChild(inner);
+    document.body.appendChild(bar);
+
+    bar.addEventListener('scroll', function(){
+      if (!activeHost || syncing) return;
+      syncing = true;
+      activeHost.scrollLeft = bar.scrollLeft;
+      syncing = false;
+    });
+  }
+
+  function isVisible(el){
+    if (!el) return false;
+    var cs = window.getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0') return false;
+    var r = el.getBoundingClientRect();
+    return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight;
+  }
+
+  function getScrollableHosts(){
+    var selectors = [
+      '#qa-details-wrap',
+      '#db-details-wrap',
+      '.table-wrap',
+      '.dashboard-table',
+      '.data-table',
+      '[data-sticky-scroll]',
+      'div[style*="overflow-x:auto"]',
+      'div[style*="overflow-x: auto"]'
+    ];
+    var nodes = [];
+    selectors.forEach(function(sel){
+      document.querySelectorAll(sel).forEach(function(el){
+        if (nodes.indexOf(el) === -1) nodes.push(el);
+      });
+    });
+    return nodes.filter(function(el){
+      return isVisible(el) && el.scrollWidth > el.clientWidth + 8;
+    });
+  }
+
+  function chooseActiveHost(){
+    var hosts = getScrollableHosts();
+    if (!hosts.length) return null;
+
+    var best = null, bestScore = -1;
+    hosts.forEach(function(el){
+      var r = el.getBoundingClientRect();
+      var visibleHeight = Math.max(0, Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0));
+      var score = visibleHeight;
+      if (r.top <= window.innerHeight && r.bottom >= 80) score += 30;
+      if (el === activeHost) score += 10;
+      if (score > bestScore) { bestScore = score; best = el; }
+    });
+    return best;
+  }
+
+  function attachHost(host){
+    if (!host || host.__stickyXAttached) return;
+    host.__stickyXAttached = true;
+    host.classList.add('sticky-x-scroll-host');
+    host.addEventListener('scroll', function(){
+      if (host !== activeHost || syncing || !bar) return;
+      syncing = true;
+      bar.scrollLeft = host.scrollLeft;
+      syncing = false;
+    });
+  }
+
+  function updateFloatingScroll(){
+    ensureBar();
+    var host = chooseActiveHost();
+
+    if (!host) {
+      bar.style.display = 'none';
+      document.body.classList.remove('has-floating-x-scroll');
+      activeHost = null;
+      return;
+    }
+
+    activeHost = host;
+    attachHost(host);
+
+    inner.style.width = host.scrollWidth + 'px';
+    bar.style.display = 'block';
+    document.body.classList.add('has-floating-x-scroll');
+
+    if (!syncing) {
+      syncing = true;
+      bar.scrollLeft = host.scrollLeft;
+      syncing = false;
+    }
+  }
+
+  window.updateFloatingScroll = updateFloatingScroll;
+  window.addEventListener('load', function(){ setTimeout(updateFloatingScroll, 600); });
+  window.addEventListener('resize', function(){ setTimeout(updateFloatingScroll, 80); });
+  window.addEventListener('scroll', function(){ window.requestAnimationFrame(updateFloatingScroll); }, {passive:true});
+  document.addEventListener('click', function(){ setTimeout(updateFloatingScroll, 250); });
+
+  if (window.MutationObserver) {
+    new MutationObserver(function(){ setTimeout(updateFloatingScroll, 120); })
+      .observe(document.body, { childList:true, subtree:true, attributes:true, attributeFilter:['style','class'] });
+  }
+})();
 </script>
 
 </body>
