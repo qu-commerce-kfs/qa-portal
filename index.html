@@ -665,19 +665,19 @@
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 0;
-  height: 20px;
+  bottom: 10px;
+  height: 24px;
   overflow-x: auto;
   overflow-y: hidden;
   background: rgba(255,255,255,0.97);
   border-top: 1.5px solid #c8d6ea;
   box-shadow: 0 -4px 14px rgba(13,27,75,0.12);
-  z-index: 2147483646;
+  z-index: 2147483647;
   display: none;
   direction: ltr;
 }
 .floating-x-scroll-inner { height: 1px; }
-body.has-floating-x-scroll { padding-bottom: 26px !important; }
+body.has-floating-x-scroll { padding-bottom: 42px !important; }
 .sticky-x-scroll-host { direction: ltr !important; }
 .sticky-x-scroll-host > table { direction: rtl !important; }
 @media print { .floating-x-scroll { display: none !important; } }
@@ -3538,9 +3538,10 @@ function toggleDashboardDetails(panelId, buttonId, showText, hideText) {
 
 
 <script>
-/* شريط تمرير أفقي ثابت يظهر دائمًا أسفل الشاشة عند وجود جدول عريض */
+/* شريط تمرير أفقي ثابت ومحسّن للجداول العريضة داخل الداشبوردات */
 (function(){
   var bar, inner, activeHost = null, syncing = false;
+  var updateTimer = null;
 
   function ensureBar(){
     if (bar) return;
@@ -3559,47 +3560,62 @@ function toggleDashboardDetails(panelId, buttonId, showText, hideText) {
     });
   }
 
-  function isVisible(el){
+  function isDisplayed(el){
     if (!el) return false;
     var cs = window.getComputedStyle(el);
     if (cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0') return false;
-    var r = el.getBoundingClientRect();
-    return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight;
+    if (el.offsetWidth <= 0 || el.offsetHeight <= 0) return false;
+    return true;
+  }
+
+  function addIfScrollable(list, el){
+    if (!el || list.indexOf(el) !== -1) return;
+    if (!isDisplayed(el)) return;
+    if (el.scrollWidth > el.clientWidth + 8) list.push(el);
   }
 
   function getScrollableHosts(){
-    var selectors = [
-      '#qa-details-wrap',
-      '#db-details-wrap',
-      '.table-wrap',
-      '.dashboard-table',
-      '.data-table',
-      '[data-sticky-scroll]',
-      'div[style*="overflow-x:auto"]',
-      'div[style*="overflow-x: auto"]'
-    ];
     var nodes = [];
-    selectors.forEach(function(sel){
+
+    // أهم أغلفة الجداول في الداشبوردات
+    ['#db-details-wrap', '#qa-details-wrap', '#control-dashboard .table-wrap', '#ctrl-tbody', '#qa-tbody', '#db-tbody'].forEach(function(sel){
       document.querySelectorAll(sel).forEach(function(el){
-        if (nodes.indexOf(el) === -1) nodes.push(el);
+        if (el.tagName && (el.tagName.toLowerCase() === 'tbody' || el.tagName.toLowerCase() === 'table')) {
+          var wrap = el.closest('div[style*="overflow-x"], .table-wrap, .dashboard-table, .data-table') || el.parentElement;
+          addIfScrollable(nodes, wrap);
+        } else {
+          addIfScrollable(nodes, el);
+        }
       });
     });
-    return nodes.filter(function(el){
-      return isVisible(el) && el.scrollWidth > el.clientWidth + 8;
+
+    // أي عنصر آخر معمول له overflow-x
+    document.querySelectorAll('.table-wrap, .dashboard-table, .data-table, [data-sticky-scroll], div[style*="overflow-x"]').forEach(function(el){
+      addIfScrollable(nodes, el);
     });
+
+    return nodes;
   }
 
   function chooseActiveHost(){
     var hosts = getScrollableHosts();
     if (!hosts.length) return null;
 
-    var best = null, bestScore = -1;
+    var best = null, bestScore = -999999;
     hosts.forEach(function(el){
       var r = el.getBoundingClientRect();
       var visibleHeight = Math.max(0, Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0));
       var score = visibleHeight;
-      if (r.top <= window.innerHeight && r.bottom >= 80) score += 30;
-      if (el === activeHost) score += 10;
+
+      // إعطاء أولوية للجدول الظاهر في الشاشة، لكن لا نخفي الشريط لو الجدول طويل وخارج موضعه الحالي
+      if (visibleHeight > 0) score += 1000;
+      if (r.top < window.innerHeight && r.bottom > 0) score += 300;
+      if (el === activeHost) score += 50;
+
+      // أولوية لداشبورد التوصيف والتقرير إذا كان مفتوحًا
+      if (el.id === 'db-details-wrap') score += 40;
+      if (el.id === 'qa-details-wrap') score += 20;
+
       if (score > bestScore) { bestScore = score; best = el; }
     });
     return best;
@@ -3631,7 +3647,7 @@ function toggleDashboardDetails(panelId, buttonId, showText, hideText) {
     activeHost = host;
     attachHost(host);
 
-    inner.style.width = host.scrollWidth + 'px';
+    inner.style.width = Math.max(host.scrollWidth, host.clientWidth + 1) + 'px';
     bar.style.display = 'block';
     document.body.classList.add('has-floating-x-scroll');
 
@@ -3642,14 +3658,35 @@ function toggleDashboardDetails(panelId, buttonId, showText, hideText) {
     }
   }
 
+  function scheduleUpdate(delay){
+    clearTimeout(updateTimer);
+    updateTimer = setTimeout(updateFloatingScroll, delay || 80);
+  }
+
   window.updateFloatingScroll = updateFloatingScroll;
-  window.addEventListener('load', function(){ setTimeout(updateFloatingScroll, 600); });
-  window.addEventListener('resize', function(){ setTimeout(updateFloatingScroll, 80); });
+  window.addEventListener('load', function(){
+    scheduleUpdate(300);
+    setTimeout(updateFloatingScroll, 900);
+    setTimeout(updateFloatingScroll, 1800);
+  });
+  window.addEventListener('resize', function(){ scheduleUpdate(80); });
   window.addEventListener('scroll', function(){ window.requestAnimationFrame(updateFloatingScroll); }, {passive:true});
-  document.addEventListener('click', function(){ setTimeout(updateFloatingScroll, 250); });
+  document.addEventListener('click', function(){
+    scheduleUpdate(150);
+    setTimeout(updateFloatingScroll, 500);
+  });
+  document.addEventListener('change', function(){ scheduleUpdate(150); });
+
+  // تحديث دوري خفيف أول دقيقة لأن بعض الداشبوردات تُبنى بعد تحميل البيانات
+  var ticks = 0;
+  var intervalId = setInterval(function(){
+    ticks++;
+    updateFloatingScroll();
+    if (ticks > 60) clearInterval(intervalId);
+  }, 1000);
 
   if (window.MutationObserver) {
-    new MutationObserver(function(){ setTimeout(updateFloatingScroll, 120); })
+    new MutationObserver(function(){ scheduleUpdate(120); })
       .observe(document.body, { childList:true, subtree:true, attributes:true, attributeFilter:['style','class'] });
   }
 })();
